@@ -20,7 +20,7 @@ return new class extends Migration
                 ->comment('Preis in Cent');
             $table->string('ab_description')->nullable(false)
                 ->comment('Beschreibung, die die Güte oder die Beschaffenheit näher darstellt. Wird durch den "Ersteller" (ab_user) gepflegt');
-            $table->integer('ab_creator_id')->nullable(false)
+            $table->unsignedTinyInteger('ab_creator_id')->nullable(false)
                 ->comment('Referenz auf den/die Nutzer:in, der den Artikel erstellt hat und verkaufen möchte');
             $table->timestamp('ab_create_date')->nullable(false)
                 ->comment('Zeitpunkt der Erstellung des Artikels');
