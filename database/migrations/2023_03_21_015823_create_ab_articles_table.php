@@ -24,6 +24,8 @@ return new class extends Migration
                 ->comment('Referenz auf den/die Nutzer:in, der den Artikel erstellt hat und verkaufen möchte');
             $table->timestamp('ab_create_date')->nullable(false)
                 ->comment('Zeitpunkt der Erstellung des Artikels');
+
+            $table->foreign('ab_creator_id')->references('id')->on('ab_users');
         });
     }
 
