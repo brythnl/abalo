@@ -12,10 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ab_users', function (Blueprint $table) {
-            $table->id()->comment('Primärschlüssel');
-            $table->string('ab_user')->nullable(false)->unique()->comment('Name');
-            $table->string('ab_password')->nullable(false)->comment('Passwort');
-            $table->string('ab_mail')->nullable(false)->unique()->comment('E-Mail-Adresse');
+            $table->id()
+                ->comment('Primärschlüssel');
+            $table->string('ab_user')->nullable(false)->unique()
+                ->comment('Name');
+            $table->string('ab_password')->nullable(false)
+                ->comment('Passwort');
+            $table->string('ab_mail')->nullable(false)->unique()
+                ->comment('E-Mail-Adresse');
             $table->timestamps();
         });
     }
