@@ -23,7 +23,7 @@ return new class extends Migration
                     Eine Kategorie kann beliebig viele Kind Kategorien haben. Eine Kategorie kann nur eine Elternkategorie besitzen.
                     NULL, falls es keine Elternkategorie gibt und es sich um eine Wurzelkategorie handelt.');
 
-            // add reference for ab_parent here
+            $table->foreign('ab_parent')->references('id')->on('ab_articlecategories');
         });
     }
 
