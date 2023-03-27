@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ab_users', function (Blueprint $table) {
             $table->id()
                 ->comment('Primärschlüssel');
-            $table->string('ab_user')->nullable(false)->unique()
+            $table->string('ab_name')->nullable(false)->unique()
                 ->comment('Name');
             $table->string('ab_password')->nullable(false)
                 ->comment('Passwort');
