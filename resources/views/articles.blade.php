@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Article Lists</title>
 </head>
 <body>
@@ -20,13 +20,13 @@
     </tr>
     @foreach($result as $table)
         <?php
-            $dir="./resources/images/articelimages/".$table['id'].".jpg";
+            $dir=resource_path()."/images/articelimages/$table[id].jpg";
             if(!file_exists($dir)){
-                $dir="./resources/images/articelimages/".$table['id'].".png";
+                $dir=resource_path()."/images/articelimages/$table[id].png";
             }
             ?>
         <tr>
-            <td><img alt="{{$table['ab_name']}}" src={{$dir}} ></td>
+            <td><img alt="{{$table['ab_name']}}" src={{$dir}}></td>
             <td>{{$table['ab_name']}}</td>
             <td>{{$table['ab_price']}}</td>
             <td>{{$table['ab_description']}}</td>
