@@ -18,16 +18,15 @@
         <th>price</th>
         <th>description</th>
     </tr>
-
     @foreach($result as $table)
         <?php
-            $dir='../resources/images/articleimages/'.$table['ab_id'].'jpg';
+            $dir="./resources/images/articelimages/".$table['id'].".jpg";
             if(!file_exists($dir)){
-                $dir='../resources/images/articleimages/'.$table['ab_id'].'png';
+                $dir="./resources/images/articelimages/".$table['id'].".png";
             }
             ?>
         <tr>
-            <td><img src="{{$dir}}" alt="{{$table['ab_name']}}"></td>
+            <td><img alt="{{$table['ab_name']}}" src={{$dir}} ></td>
             <td>{{$table['ab_name']}}</td>
             <td>{{$table['ab_price']}}</td>
             <td>{{$table['ab_description']}}</td>
