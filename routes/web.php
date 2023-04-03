@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/isloggedin', [AuthController::class, 'isloggedin'])->name('haslogin');
+Route::get('/article',[\App\Http\Controllers\ArticleController::class,'getProductList']);
