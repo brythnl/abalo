@@ -20,9 +20,9 @@
     </tr>
     @foreach($result as $table)
         <?php
-            $dir="./images/articelimages/$table[id].jpg";
+            $dir="./images/articles/$table[id].jpg";
             if(!file_exists($dir)){
-                $dir="./images/articelimages/$table[id].png";
+                $dir="./images/articles/$table[id].png";
             }
             ?>
         <tr>
