@@ -25,3 +25,6 @@ Route::get('/isloggedin', [AuthController::class, 'isloggedin'])->name('haslogin
 
 // show articles
 Route::get('/articles',[ArticleController::class,'getProductList']);
+
+// article input
+Route::view('/newarticle', 'new-article');
