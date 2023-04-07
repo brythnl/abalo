@@ -24,4 +24,4 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/isloggedin', [AuthController::class, 'isloggedin'])->name('haslogin');
 
 // show articles
-Route::get('/article',[ArticleController::class,'getProductList']);
+Route::get('/articles',[ArticleController::class,'getProductList']);
