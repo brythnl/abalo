@@ -14,7 +14,7 @@ function createInput(typeValue, nameValue, idValue) {
     input.setAttribute("type", typeValue);
     input.setAttribute("name", nameValue);
     input.setAttribute("id", idValue);
-    input.setAttribute("required");
+    input.setAttribute("required", "");
 
     return input;
 }
