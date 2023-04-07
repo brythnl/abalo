@@ -50,6 +50,20 @@ function createArticleForm() {
     document.getElementById("article-form-container").appendChild(articleForm);
 }
 
+function submitArticleForm() {
+    const name = document.getElementById("name-input").value;
+    const price = document.getElementById("price-input").value;
 
+    if (name.length < 3) {
+        alert("Please enter a name");
+        return false;
+    }
+    if (price <= 0) {
+        alert("Minimum price is 0.01");
+        return false;
+    }
+
+    document.getElementById("article-form").submit();
+}
 
 createArticleForm();
