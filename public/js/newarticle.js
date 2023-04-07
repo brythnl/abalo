@@ -32,7 +32,6 @@ function createArticleForm() {
     const submitButton = document.createElement("input");
     submitButton.setAttribute("type", "submit");
     submitButton.setAttribute("value", "Speichern");
-    submitButton.setAttribute("onclick", submitArticleForm());
 
     const articleForm = document.createElement("form");
     articleForm.setAttribute("id", "article-form");
@@ -50,12 +49,14 @@ function createArticleForm() {
     document.getElementById("article-form-container").appendChild(articleForm);
 }
 
-function submitArticleForm() {
+function submitArticleForm(e) {
+    e.preventDefault(); // prevents form from being immediately submitted when submit button is pressed
+
     const name = document.getElementById("name-input").value;
     const price = document.getElementById("price-input").value;
 
     if (name.length < 3) {
-        alert("Please enter a name");
+        alert("Minimum name length is 3 characters");
         return false;
     }
     if (price <= 0) {
@@ -64,6 +65,10 @@ function submitArticleForm() {
     }
 
     document.getElementById("article-form").submit();
+
+    alert("Form submitted!");
 }
 
 createArticleForm();
+
+document.getElementById("article-form").addEventListener("submit", submitArticleForm);
