@@ -28,6 +28,8 @@ function createArticleForm() {
 
     const descLabel = createLabel("desc", "Description: ");
     const descInput = document.createElement("textarea");
+    descInput.setAttribute("name", "desc");
+    descInput.setAttribute("id", "desc-input")
 
     const submitButton = document.createElement("input");
     submitButton.setAttribute("type", "submit");
