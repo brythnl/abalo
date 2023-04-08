@@ -35,11 +35,17 @@ function createArticleForm() {
     submitButton.setAttribute("type", "submit");
     submitButton.setAttribute("value", "Speichern");
 
+    const csrfToken = document.createElement("input");
+    csrfToken.setAttribute("type", "hidden");
+    csrfToken.setAttribute("name", "_token");
+    csrfToken.setAttribute("value", document.querySelector('meta[name="csrf-token"]').content);
+
     const articleForm = document.createElement("form");
     articleForm.setAttribute("id", "article-form");
     articleForm.setAttribute("action", "/articles");
     articleForm.setAttribute("method", "post");
 
+    articleForm.appendChild(csrfToken);
     articleForm.appendChild(nameLabel);
     articleForm.appendChild(nameInput);
     articleForm.appendChild(priceLabel);
