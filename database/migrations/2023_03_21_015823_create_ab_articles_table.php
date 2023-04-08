@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ab_articles', function (Blueprint $table) {
-            $table->id()
+            $table->id()->from(31) // specify starting id (here does not include seed data)
                 ->comment('Primärschlüssel');
             $table->string('ab_name')->nullable(false)->unique()
                 ->comment('Name');
