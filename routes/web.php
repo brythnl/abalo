@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// authentication
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/isloggedin', [AuthController::class, 'isloggedin'])->name('haslogin');
-Route::get('/article',[\App\Http\Controllers\ArticleController::class,'getProductList']);
+
+// show articles
+Route::get('/articles', [ArticleController::class, 'getProductList']);
+
+// new article input
+Route::view('/newarticle', 'new-article');
+// receive new article data
+Route::post('/articles', [ArticleController::class, 'storeNewArticle']);
