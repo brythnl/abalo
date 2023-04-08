@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// authentication
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/isloggedin', [AuthController::class, 'isloggedin'])->name('haslogin');
