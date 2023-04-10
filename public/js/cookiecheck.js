@@ -1,3 +1,5 @@
+'use strict';
+
 /* ------------------------ General functions ------------------------ */
 function setCookie(name, value) {
     document.cookie = name + "=" + value;
