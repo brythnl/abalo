@@ -6,6 +6,9 @@
         <input type="search" name="search" id="search">
         <input type="submit" value="submit">
     </form>
+
+    <x-cart-overview></x-cart-overview>
+
     <table>
         <tbody>
         <tr>
