@@ -1,4 +1,5 @@
 <x-layout>
+    <script src="{{ asset('/js/cart.js') }}" defer></script>
     <x-slot:title>Article Lists</x-slot>
 
     <form method="GET" action="/article">
