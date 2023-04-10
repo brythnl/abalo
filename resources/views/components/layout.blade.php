@@ -9,5 +9,11 @@
 </head>
 <body>
     {{ $slot }}
+
+    <div id="cookie-banner">
+        <p>This website uses cookies.</p>
+        <button id="accept-cookie-button">I accept</button>
+        <button id="refuse-cookie-button">I refuse</button>
+    </div>
 </body>
 </html>
