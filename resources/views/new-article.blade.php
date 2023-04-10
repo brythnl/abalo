@@ -10,5 +10,4 @@
 
     </div>
 
-    <script src="{{ asset('/js/newarticle.js') }}"></script>
 </x-layout>
