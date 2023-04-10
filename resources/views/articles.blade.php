@@ -1,4 +1,5 @@
 <x-layout>
+    <script src="{{ asset('/js/cart.js') }}" defer></script>
     <x-slot:title>Article Lists</x-slot>
 
     <form method="GET" action="/article">
@@ -6,6 +7,9 @@
         <input type="search" name="search" id="search">
         <input type="submit" value="submit">
     </form>
+
+    <x-cart-overview></x-cart-overview>
+
     <table>
         <tbody>
         <tr>
@@ -23,9 +27,11 @@
                 ?>
             <tr>
                 <td><img alt="{{$table['ab_name']}}" src={{$dir}}></td>
-                <td>{{$table['ab_name']}}</td>
-                <td>{{$table['ab_price']}}</td>
-                <td>{{$table['ab_description']}}</td>
+                <td class="article-name">{{$table['ab_name']}}</td>
+                <td class="article-price">{{$table['ab_price']}}</td>
+                <td class="article-desc">{{$table['ab_description']}}</td>
+                <td><a href=# class="add-to-cart-button" style="text-decoration: none; color: black;">+</a></td>
+                <td><a href=# class="remove-from-cart-button" style="text-decoration: none; color: black;">-</a></td>
             </tr>
         @endforeach
         </tbody>
