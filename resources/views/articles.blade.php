@@ -26,10 +26,10 @@
                 ?>
             <tr>
                 <td><img alt="{{$table['ab_name']}}" src={{$dir}}></td>
-                <td>{{$table['ab_name']}}</td>
-                <td>{{$table['ab_price']}}</td>
-                <td>{{$table['ab_description']}}</td>
-                <td><a href=# class="add-to-cart-button">+</a></td>
+                <td class="article-name">{{$table['ab_name']}}</td>
+                <td class="article-price">{{$table['ab_price']}}</td>
+                <td class="article-desc">{{$table['ab_description']}}</td>
+                <td><a href=# class="add-to-cart-button" style="text-decoration: none; color: black;">+</a></td>
             </tr>
         @endforeach
         </tbody>
