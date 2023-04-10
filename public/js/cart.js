@@ -1,13 +1,13 @@
 'use strict';
 
 const addButtons = document.querySelectorAll(".add-to-cart-button");
+const removeButtons = document.querySelectorAll(".remove-from-cart-button");
 const cartList = document.getElementById("cart-list");
 
 const cart = [];
 
 function addToCart(button) {
     const articleRow = button.parentElement.parentElement;
-
     const articleName = articleRow.querySelector(".article-name").textContent;
     const articlePrice = articleRow.querySelector(".article-price").textContent;
 
@@ -16,8 +16,20 @@ function addToCart(button) {
         name: articleName,
         price: articlePrice,
     })
+}
 
-    updateCart();
+function removeFromCart(button) {
+    const articleRow = button.parentElement.parentElement;
+    const articleName = articleRow.querySelector(".article-name").textContent;
+
+    const articleIndex = cart.findIndex(article => article.name === articleName);
+
+    if (articleIndex !== -1) {
+        cart.splice(articleIndex, 1);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function updateCart() {
@@ -28,7 +40,7 @@ function updateCart() {
     // Reset Cart
     cartList.innerHTML = "";
 
-    // Append each added article into cart
+    // Append each article into cart list
     cart.forEach(article => {
         const newArticle = document.createElement("li");
         const newArticleName = document.createElement("p");
@@ -56,13 +68,32 @@ function disableButton(button) {
     button.style.pointerEvents = "none";
 }
 
+function enableButton(button) {
+    button.parentElement.parentElement.querySelector(".add-to-cart-button").textContent = "+";
+    button.style.pointerEvents = "auto";
+}
+
 addButtons.forEach(button => {
     button.addEventListener("click", () => {
         addToCart(button);
+        updateCart();
         alert("Item added to cart!");
 
-        // Prevent multiple addition to cart
+        // Prevent multiple additions of the same article to cart
         disableButton(button);
     });
 });
 
+removeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        if (removeFromCart(button)) {
+            updateCart();
+            alert("Item removed from cart!");
+
+            // Re-enable user to add article to cart
+            enableButton(button);
+        } else {
+            alert("Item not in cart!");
+        }
+    });
+});
