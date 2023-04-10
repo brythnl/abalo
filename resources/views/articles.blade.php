@@ -26,6 +26,7 @@
                 <td>{{$table['ab_name']}}</td>
                 <td>{{$table['ab_price']}}</td>
                 <td>{{$table['ab_description']}}</td>
+                <td><a href=# class="add-to-cart-button">+</a></td>
             </tr>
         @endforeach
         </tbody>
