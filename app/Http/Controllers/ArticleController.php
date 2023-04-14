@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     public function getProductList() {
-        $filter = isset($_GET['search'])?pg_escape_string($_GET['search']):'';
+        $filter = isset($_GET['search'])?$_GET['search']:'';
+        $dir = array();
         $result = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
-        return view('articles',['result'=>$result]);
+        foreach ($result as $item) {
+            if(file_exists("./images/articles/$item[id].jpg")){
+                $dir[$item['id']]="./images/articles/$item[id].jpg";
+            }else{
+                $dir[$item['id']]="./images/articles/$item[id].png";
+            }
+        }
+        return view('articles',['result'=>$result,'dir'=>$dir]);
     }
 
     public function storeNewArticle(Request $request) {
