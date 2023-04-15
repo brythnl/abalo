@@ -1,6 +1,4 @@
 <x-layout>
-    @include('navbar')
-    <script src="{{ asset('/js/cart.js') }}" defer></script>
     <x-slot:title>Article Lists</x-slot>
         @yield('navbar')
         <main>
