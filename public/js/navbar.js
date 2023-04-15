@@ -40,3 +40,13 @@ window.onclick = function(event) {
         document.getElementById("DownList").style.visibility="hidden";
     }
 }
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+    var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+        document.getElementById("navBar").style.top = "0";
+    } else {
+        document.getElementById("navBar").style.top = "-50px";
+    }
+    prevScrollpos = currentScrollPos;
+}
