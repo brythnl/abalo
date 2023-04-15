@@ -6,3 +6,4 @@
 
     <p>Total: <span id="cart-total">0</span> €</p>
 </div>
+<script src="{{ asset('/js/cart.js') }}" defer></script>
