@@ -1,6 +1,8 @@
 <x-layout>
     <x-slot:title>Article Lists</x-slot>
-        @yield('navbar')
+
+        <x-navbar></x-navbar>
+
         <main>
         <form method="GET" action="/articles">
             <label for="search">search article name :</label>
