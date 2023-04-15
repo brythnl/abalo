@@ -69,8 +69,9 @@ function disableButton(button) {
 }
 
 function enableButton(button) {
-    button.parentElement.parentElement.querySelector(".add-to-cart-button").textContent = "+";
-    button.style.pointerEvents = "auto";
+    const currentAddButton = button.parentElement.parentElement.querySelector(".add-to-cart-button");
+    currentAddButton.textContent = "+";
+    currentAddButton.style.pointerEvents = "auto";
 }
 
 addButtons.forEach(button => {
