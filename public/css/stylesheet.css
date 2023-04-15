@@ -1,0 +1,65 @@
+/*
+navbar css
+ */
+.navbar,.dropList{
+    list-style-type: none;
+}
+.navbar {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto;
+    font-family: Arial;
+    padding: 0;
+}
+.navbar>li{
+    background-color:#3C486B;
+    margin-top: auto;
+    height: 100%;
+    text-align: center;
+}
+.navbar>li>a{
+    color: white;
+    position: relative;
+    top: 33%;
+}
+.navbar a{
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+}
+.navbar>li:hover ,.Dropdown-button:hover, .Dropdown-button:focus,.navbar>li>a:hover {
+    background-color: #393646;
+}
+.Dropdown-button{
+    width: 100%;
+    color: white;
+    background-color: #3C486B;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.dropList {
+    position:relative;
+    padding: 0;
+    color: white;
+    grid-column-start: 4;
+    grid-template-rows: auto auto;
+    background-color: #C0DBEA;
+    visibility: hidden;
+}
+
+.dropList>li:hover{
+    background-color: #718096;
+}
+.dropList>li{
+    height: 30px;
+    color: white;
+}
+
+
