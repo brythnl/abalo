@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+    </head>
+    <body>
+        <p id="message"></p>
+
+        <script>
+            const messageContainer = document.getElementById('message');
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "static/message.json");
+            xhr.onload = () => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    messageContainer.textContent = JSON.parse(
+                        xhr.responseText
+                    ).message;
+                }
+            };
+            xhr.send();
+        </script>
+    </body>
+</html>
