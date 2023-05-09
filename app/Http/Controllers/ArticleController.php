@@ -8,17 +8,7 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     public function getProductList() {
-        $filter = isset($_GET['search'])?$_GET['search']:'';
-        $dir = array();
-        $result = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
-        foreach ($result as $item) {
-            if(file_exists("./images/articles/$item[id].jpg")){
-                $dir[$item['id']]="./images/articles/$item[id].jpg";
-            }else{
-                $dir[$item['id']]="./images/articles/$item[id].png";
-            }
-        }
-        return view('articles',['result'=>$result,'dir'=>$dir]);
+        return view('articles');
     }
 
     public function storeNewArticle(Request $request) {
@@ -43,4 +33,21 @@ class ArticleController extends Controller
             return back()->with(['successMessage' => "Article successfully saved."]);
         }
     }
+
+    public function getProduct_api(){
+        $filter = isset($_GET['search_text'])?$_GET['search_text']:'';
+        $result = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
+        $array = array();
+        foreach ($result as $item) {
+            if(file_exists("./images/articles/$item[id].jpg")){
+                $dir="./images/articles/$item[id].jpg";
+            }else{
+                $dir="./images/articles/$item[id].png";
+            }
+            $array = array_push($array,array("id"=>"$item[id]","picture"=>$dir,"ab_name"=>"$item[ab_name]",
+                "ab_price"=>"$item[ab_price]","ab_description"=>"$item[ab_description]"));
+        }
+        return response()->json($array);
+    }
+
 }

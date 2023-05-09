@@ -50,12 +50,12 @@ navbar-css
 }
 .dropList {
     position:relative;
+    display: none;
     padding: 0;
     color: white;
     grid-column-start: 4;
     grid-template-rows: auto auto;
     background-color: #C0DBEA;
-    visibility: hidden;
 }
 
 .dropList>li:hover{
@@ -74,5 +74,5 @@ body{
     margin: 0;
 }
 main{
-    margin-top: 5%;
+    margin-top: 50px;
 }
