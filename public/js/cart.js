@@ -78,7 +78,6 @@ addButtons.forEach(button => {
     button.addEventListener("click", () => {
         addToCart(button);
         updateCart();
-        alert("Item added to cart!");
 
         // Prevent multiple additions of the same article to cart
         disableButton(button);
@@ -89,7 +88,6 @@ removeButtons.forEach(button => {
     button.addEventListener("click", () => {
         if (removeFromCart(button)) {
             updateCart();
-            alert("Item removed from cart!");
 
             // Re-enable user to add article to cart
             enableButton(button);
