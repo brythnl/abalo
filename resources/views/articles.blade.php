@@ -21,7 +21,7 @@
                         <th>description</th>
                     </tr>
                     @foreach ($result as $table)
-                        <tr>
+                        <tr id="{{ $table['id'] }}">
                             <td><img alt="{{ $table['ab_name'] }}" src={{ $dir[$table['id']] }}></td>
                             <td class="article-name">{{ $table['ab_name'] }}</td>
                             <td class="article-price">{{ $table['ab_price'] }}</td>
