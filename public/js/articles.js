@@ -1,6 +1,4 @@
 /* ------------------------ retrieve Data from Form ------------------------ */
-let p = document.getElementById('mypar');
-p.innerText='asu'
 /*let submit-button = document.getElementById('submit_search');
 if(submit-button) {
     submit-button.addEventListener('click',
