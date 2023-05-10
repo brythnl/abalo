@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     public function getProductList() {
+        /*$filter = isset($_GET['search_text'])?$_GET['search_text']:'';
+        $result = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
+        $list = array();
+        foreach ($result as $item) {
+            if(file_exists("./images/articles/$item[id].jpg")){
+                $dir="./images/articles/$item[id].jpg";
+            }else{
+                $dir="./images/articles/$item[id].png";
+            }
+
+        }*/
         return view('articles');
     }
 
@@ -38,16 +49,19 @@ class ArticleController extends Controller
         $filter = isset($_GET['search_text'])?$_GET['search_text']:'';
         $result = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
         $array = array();
+        $i=0;
         foreach ($result as $item) {
             if(file_exists("./images/articles/$item[id].jpg")){
                 $dir="./images/articles/$item[id].jpg";
             }else{
                 $dir="./images/articles/$item[id].png";
             }
-            $array = array_push($array,array("id"=>"$item[id]","picture"=>$dir,"ab_name"=>"$item[ab_name]",
-                "ab_price"=>"$item[ab_price]","ab_description"=>"$item[ab_description]"));
+            $array[$i]=array("id"=>$item['id'],"picture"=>$dir,"ab_name"=>$item['ab_name'],
+                "ab_price"=>$item['ab_price'],"ab_description"=>$item['ab_description']);
+            $i++;
         }
-        return response()->json($array);
+        $array=json_encode($array);
+        return response($array);
     }
 
 }

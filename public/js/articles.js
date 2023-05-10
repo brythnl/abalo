@@ -1,53 +1,76 @@
+'use strict';
 /* ------------------------ retrieve Data from Form ------------------------ */
-/*let submit-button = document.getElementById('submit_search');
-if(submit-button) {
-    submit-button.addEventListener('click',
+let submitbutton = document.getElementById('submit_search');
+let Filter ="";
+sendData(Filter);
+if(submitbutton) {
+    submitbutton.addEventListener('click',
         event => {
-            let SearchText = document.querySelector('#search_text').value;
+            Filter = document.querySelector('#search_text').value;
             event.preventDefault();
-            sendData(SearchText);
+            sendData(Filter);
             return false;
         })
 }
-let Filter ="";
-sendData(Filter);
 /* ------------------------ sending XMLHTTPRequest ------------------------ */
-/*function sendData(SearchText) {
+let result;
+function sendData(Text) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', "/api/articles");
-    xhr.setRequestHeader("Search-text",SearchText);
-    let formData = new FormData();
-    formData.append("search_text",SearchText);
-    xhr.send(formData);
+    xhr.setRequestHeader("search_text",Text);
+    xhr.onreadystatechange=()=> {
+        if(xhr.readyState===4){
+            if(xhr.status===200){
+                result=JSON.parse(xhr.responseText);
+                createTable(result);
+            }else{
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.send();
 }
 
 /* ------------------------ Construction Table ------------------------ */
-/*let list = Filter;
-let table = document.getElementById('articletable_body');
-list.forEach((item)=>{
-    let tr = document.createElement('tr');
-    item.forEach((data)=>{
+
+
+function createTable(lists) {
+    let table = document.getElementById('articletable_body');
+    for(let i = 0;i<lists.length;i++) {
+        let item=lists[i];
+        let tr = document.createElement('tr');
+
+        Object.keys(item).forEach(key=>{
+
+            let td = document.createElement('td');
+            if(key==='picture'){
+                let img = document.createElement('img');
+                img.setAttribute('src',item[key]);
+                td.appendChild(img);
+            }else {
+                td.innerText = item[key];
+            }
+            tr.appendChild(td);
+        })
         let td = document.createElement('td');
-        td.innerText=data;
+        let a = document.createElement('a');
+        a.innerText = "+";
+        a.setAttribute('href', '#');
+        a.classList.add('add-to-cart-button');
+        a.setAttribute('style', 'text-decoration: none; color: black;')
+        td.appendChild(a);
         tr.appendChild(td);
-    })
-    let td = document.createElement('td');
-    let a = document.createElement('a');
-    a.innerText="+";
-    a.setAttribute('href','#');
-    a.classList.add('add-to-cart-button');
-    a.setAttribute('style','text-decoration: none; color: black;')
-    td.appendChild(a);
-    tr.appendChild(td);
-    td = document.createElement('td');
-    a = document.createElement('a');
-    a.innerText="-";
-    a.setAttribute('href','#');
-    a.classList.add('remove-from-cart-button');
-    a.setAttribute('style','text-decoration: none; color: black;')
-    tr.appendChild(td);
-    table.appendChild(tr);
-})
-*/
+        td = document.createElement('td');
+        a = document.createElement('a');
+        a.innerText = "-";
+        a.setAttribute('href', '#');
+        a.classList.add('remove-from-cart-button');
+        a.setAttribute('style', 'text-decoration: none; color: black;')
+        td.appendChild(a);
+        tr.appendChild(td);
+        table.appendChild(tr);
+    }
+}
+
 
 

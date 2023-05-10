@@ -1,4 +1,4 @@
-
+'use strict';
 /* ------------------------ Menu List and Get Navbar-element ------------------------ */
 let menu = [["Home"],["Kategorien"],["Verkaufen"],["Unternehmen","Philosophie","Karriere"]];
 let list = document.getElementById("navBar");
