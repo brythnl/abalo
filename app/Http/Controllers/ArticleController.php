@@ -1,33 +1,44 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\AbArticle;
 use App\Models\AbUser;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function getProductList() {
-        $filter = isset($_GET['search'])?$_GET['search']:'';
+    public function getProductList(Request $request)
+    {
+        $filter = isset($_GET['search']) ? $_GET['search'] : '';
         $dir = array();
-        $result = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
+        $result = AbArticle::query()->where(('ab_name'), 'ILIKE', '%' . strtolower($filter) . '%')->get()->toArray();
         foreach ($result as $item) {
-            if(file_exists("./images/articles/$item[id].jpg")){
-                $dir[$item['id']]="./images/articles/$item[id].jpg";
-            }else{
-                $dir[$item['id']]="./images/articles/$item[id].png";
+            if (file_exists("./images/articles/$item[id].jpg")) {
+                $dir[$item['id']] = "./images/articles/$item[id].jpg";
+            } else {
+                $dir[$item['id']] = "./images/articles/$item[id].png";
             }
         }
-        return view('articles',['result'=>$result,'dir'=>$dir]);
+        return view('articles', [
+            'result' => $result,
+            'dir' => $dir,
+            'shoppingcartid' => $request->session()->get('abalo_shoppingcartid'),
+        ]);
     }
 
-    public function storeNewArticle(Request $request) {
+    public function storeNewArticle(Request $request)
+    {
         $name = trim($request->input("name") ?? NULL);
         $price = trim($request->input("price") ?? NULL);
         $desc = trim($request->input("desc") ?? NULL);
 
-        if (strlen($name) < 3) { $fehler = "Minimal name length is 3 characters"; }
-        if ($price <= 0) { $fehler = "Minimum price is 0.01"; }
+        if (strlen($name) < 3) {
+            $fehler = "Minimal name length is 3 characters";
+        }
+        if ($price <= 0) {
+            $fehler = "Minimum price is 0.01";
+        }
 
         if (isset($fehler)) {
             echo $fehler;
