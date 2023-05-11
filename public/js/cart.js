@@ -51,12 +51,19 @@ function removeFromCart(articleid) {
     xhr.send();
 }
 
-    if (articleIndex !== -1) {
-        cart.splice(articleIndex, 1);
-        return true;
-    } else {
-        return false;
-    }
+function getItems(callback) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", `/api/shoppingcart/items/${shoppingcartid}`);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            cartItems = JSON.parse(xhr.responseText);
+            callback(cartItems);
+        } else {
+            console.error("Failed to get cart contents: ", xhr.statusText);
+        }
+    };
+    xhr.send();
 }
 
 function updateCart() {
