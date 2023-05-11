@@ -25,6 +25,7 @@ function createArticleForm() {
 
     const priceLabel = createLabel("price", "Price: ");
     const priceInput = createInput("number", "price", "price-input")
+    priceInput.setAttribute('min','0');
 
     const descLabel = createLabel("desc", "Description: ");
     const descInput = document.createElement("textarea");
@@ -42,7 +43,7 @@ function createArticleForm() {
 
     const articleForm = document.createElement("form");
     articleForm.setAttribute("id", "article-form");
-    articleForm.setAttribute("action", "/articles");
+    //articleForm.setAttribute("action", "articles");
     articleForm.setAttribute("method", "post");
 
     articleForm.appendChild(csrfToken);
@@ -71,8 +72,8 @@ function submitArticleForm(e) {
         alert("Minimum price is 0.01");
         return false;
     }
-
-    document.getElementById("article-form").submit();
+    newArticle();
+    //document.getElementById("article-form").submit();
 
     alert("Form submitted!");
 }
@@ -80,3 +81,26 @@ function submitArticleForm(e) {
 createArticleForm();
 
 document.getElementById("article-form").addEventListener("submit", submitArticleForm);
+
+function newArticle(){
+    let xhr = new XMLHttpRequest();
+    let name = document.getElementById("name-input").value;
+    let price = document.getElementById("price-input").value;
+    let desc = document.getElementById("desc-input").value;
+    let url = "/api/articles";
+    let params = new URLSearchParams({'name':name,'price':price,'desc':desc});
+    xhr.open('POST',url);
+    xhr.onreadystatechange=()=> {
+        if(xhr.readyState===4){
+            if(xhr.status===200){
+                let result=JSON.parse(xhr.responseText);
+                document.getElementById("returntext").innerText="Article successfully saved with id :"+result['id'];
+                console.log(result);
+            }else{
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(params);
+}
