@@ -1,10 +1,4 @@
-'use strict';
-
-const addButtons = document.querySelectorAll(".add-to-cart-button");
-const removeButtons = document.querySelectorAll(".remove-from-cart-button");
-const cartList = document.getElementById("cart-list");
-
-const cart = [];
+"use strict";
 
 function addToCart(button) {
     const articleid = button.parentElement.parentElement.getAttribute("id");
