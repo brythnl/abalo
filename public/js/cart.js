@@ -111,16 +111,10 @@ const addButtons = document.querySelectorAll(".add-to-cart-button");
 const cartList = document.getElementById("cart-list");
 const shoppingcartid = cartList.parentElement.getAttribute("id");
 
-function disableButton(button) {
-    button.textContent = "In cart"
-    button.style.pointerEvents = "none";
-}
+let cartItems = [];
 
-function enableButton(button) {
-    const currentAddButton = button.parentElement.parentElement.querySelector(".add-to-cart-button");
-    currentAddButton.textContent = "+";
-    currentAddButton.style.pointerEvents = "auto";
-}
+// Show current cart
+getItems(updateCart);
 
 addButtons.forEach((button) => {
     button.addEventListener("click", () => {
