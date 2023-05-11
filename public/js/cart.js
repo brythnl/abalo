@@ -7,15 +7,24 @@ const cartList = document.getElementById("cart-list");
 const cart = [];
 
 function addToCart(button) {
-    const articleRow = button.parentElement.parentElement;
-    const articleName = articleRow.querySelector(".article-name").textContent;
-    const articlePrice = articleRow.querySelector(".article-price").textContent;
+    const articleid = button.parentElement.parentElement.getAttribute("id");
 
-    // Add article object into cart array
-    cart.push({
-        name: articleName,
-        price: articlePrice,
-    })
+    // Add article object into cart
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", `/api/shoppingcart/${shoppingcartid}/${articleid}`);
+    xhr.setRequestHeader(
+        "X-CSRF-TOKEN",
+        document.querySelector('meta[name="csrf-token"]').content
+    );
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            alert(xhr.responseText);
+        } else {
+            console.error("Failed to add article to cart: ", xhr.statusText);
+        }
+    };
+    xhr.send();
 }
 
 function removeFromCart(button) {
