@@ -26,10 +26,8 @@
                             <td class="article-name">{{ $table['ab_name'] }}</td>
                             <td class="article-price">{{ $table['ab_price'] }}</td>
                             <td class="article-desc">{{ $table['ab_description'] }}</td>
-                            <td><a href=# class="add-to-cart-button" style="text-decoration: none; color: black;">+</a>
-                            </td>
-                            <td><a href=# class="remove-from-cart-button"
-                                    style="text-decoration: none; color: black;">-</a>
+                            <td>
+                                <a href=# class="add-to-cart-button" style="text-decoration: none; color: green; font-weight: 1000;">+</a>
                             </td>
                         </tr>
                     @endforeach
