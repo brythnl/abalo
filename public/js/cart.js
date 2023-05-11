@@ -122,25 +122,9 @@ function enableButton(button) {
     currentAddButton.style.pointerEvents = "auto";
 }
 
-addButtons.forEach(button => {
+addButtons.forEach((button) => {
     button.addEventListener("click", () => {
         addToCart(button);
-        updateCart();
-
-        // Prevent multiple additions of the same article to cart
-        disableButton(button);
-    });
-});
-
-removeButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        if (removeFromCart(button)) {
-            updateCart();
-
-            // Re-enable user to add article to cart
-            enableButton(button);
-        } else {
-            alert("Item not in cart!");
-        }
+        getItems(updateCart);
     });
 });
