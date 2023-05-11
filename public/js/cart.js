@@ -107,9 +107,9 @@ function updateCart() {
     document.getElementById("cart-total").textContent = cartSum;
 }
 
-function sumCart() {
-    return cart.reduce((acc, article) => acc + Number(article.price), 0);
-}
+const addButtons = document.querySelectorAll(".add-to-cart-button");
+const cartList = document.getElementById("cart-list");
+const shoppingcartid = cartList.parentElement.getAttribute("id");
 
 function disableButton(button) {
     button.textContent = "In cart"
