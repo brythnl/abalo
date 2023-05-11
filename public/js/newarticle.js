@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 function createLabel(forValue, content) {
     const label = document.createElement("label");
@@ -24,21 +24,25 @@ function createArticleForm() {
     const nameInput = createInput("text", "name", "name-input");
 
     const priceLabel = createLabel("price", "Price: ");
-    const priceInput = createInput("number", "price", "price-input")
+    const priceInput = createInput("number", "price", "price-input");
 
     const descLabel = createLabel("desc", "Description: ");
     const descInput = document.createElement("textarea");
     descInput.setAttribute("name", "desc");
-    descInput.setAttribute("id", "desc-input")
+    descInput.setAttribute("id", "desc-input");
 
     const submitButton = document.createElement("input");
+    submitButton.setAttribute("id", "submit-button");
     submitButton.setAttribute("type", "submit");
     submitButton.setAttribute("value", "Speichern");
 
     const csrfToken = document.createElement("input");
     csrfToken.setAttribute("type", "hidden");
     csrfToken.setAttribute("name", "_token");
-    csrfToken.setAttribute("value", document.querySelector('meta[name="csrf-token"]').content);
+    csrfToken.setAttribute(
+        "value",
+        document.querySelector('meta[name="csrf-token"]').content
+    );
 
     const articleForm = document.createElement("form");
     articleForm.setAttribute("id", "article-form");
@@ -77,6 +81,49 @@ function submitArticleForm(e) {
     alert("Form submitted!");
 }
 
+// =================================================================================================================
+
 createArticleForm();
 
-document.getElementById("article-form").addEventListener("submit", submitArticleForm);
+// document.getElementById("article-form").addEventListener("submit", submitArticleForm);
+
+document.getElementById("submit-button")
+    .addEventListener("click", (e) => {
+        e.preventDefault();
+
+        let formData = new FormData();
+        collectFormData(formData);
+        sendFormData(formData);
+    });
+
+function collectFormData(formData) {
+    document.querySelectorAll("[id$='-input']")
+        .forEach(input => {
+            formData.append(input.name, input.value);
+        });
+}
+
+function sendFormData(formData) {
+    const articleForm = document.getElementById("article-form");
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/articles");
+    xhr.setRequestHeader("X-CSRF-TOKEN",
+        document.querySelector('meta[name="csrf-token"]').content
+    );
+
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            let message = '';
+            if (xhr.status === 200) {
+                message = "Erfolgreich";
+            } else {
+                message = "Fehler: " + xhr.status + " " + xhr.statusText;
+            }
+            articleForm.appendChild(document.createTextNode(message));
+        }
+    };
+    xhr.onerror = () => articleForm.appendChild("Fehler: " + xhr.status + " " + xhr.statusText);
+
+    xhr.send(formData);
+}
