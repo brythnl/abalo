@@ -8,7 +8,7 @@ use Psy\Util\Json;
 
 class ArticleController extends Controller
 {
-    public function getProductList() {
+    public function getProductList(Request $request) {
         $filter = $_GET['search']??'';
         //$filter = pg_escape_string($filter);
         $res = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
@@ -24,7 +24,7 @@ class ArticleController extends Controller
                 "price"=>$item['ab_price'],"description"=>$item['ab_description']);
             $i++;
         }
-        return view('articles',["filter"=>$filter,"result"=>$result]);
+        return view('articles',["filter"=>$filter,"result"=>$result,'shoppingcartid' => $request->session()->get('abalo_shoppingcartid')]);
     }
     public function getProduct_api(Request $request){
         $filter = $request->get('search');
@@ -88,7 +88,7 @@ class ArticleController extends Controller
             $article->ab_create_date = date("Y-m-d H:i:s");
             $article->save();
             $res = AbArticle::query()->where(('ab_name'),'LIKE',$name)->get()->toArray();
-            $res = array("id"=>31,"name"=>$name,"price"=>$price,"desc"=>$desc);
+            //$res = array("id"=>31,"name"=>$name,"price"=>$price,"desc"=>$desc);
             $res = json_encode($res);
             return response($res);
         }

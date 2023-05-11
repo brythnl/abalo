@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 function createLabel(forValue, content) {
     const label = document.createElement("label");
@@ -24,26 +24,29 @@ function createArticleForm() {
     const nameInput = createInput("text", "name", "name-input");
 
     const priceLabel = createLabel("price", "Price: ");
-    const priceInput = createInput("number", "price", "price-input")
-    priceInput.setAttribute('min','0');
+    const priceInput = createInput("number", "price", "price-input");
 
     const descLabel = createLabel("desc", "Description: ");
     const descInput = document.createElement("textarea");
     descInput.setAttribute("name", "desc");
-    descInput.setAttribute("id", "desc-input")
+    descInput.setAttribute("id", "desc-input");
 
     const submitButton = document.createElement("input");
+    submitButton.setAttribute("id", "submit-button");
     submitButton.setAttribute("type", "submit");
     submitButton.setAttribute("value", "Speichern");
 
     const csrfToken = document.createElement("input");
     csrfToken.setAttribute("type", "hidden");
     csrfToken.setAttribute("name", "_token");
-    csrfToken.setAttribute("value", document.querySelector('meta[name="csrf-token"]').content);
+    csrfToken.setAttribute(
+        "value",
+        document.querySelector('meta[name="csrf-token"]').content
+    );
 
     const articleForm = document.createElement("form");
     articleForm.setAttribute("id", "article-form");
-    //articleForm.setAttribute("action", "articles");
+    articleForm.setAttribute("action", "/articles");
     articleForm.setAttribute("method", "post");
 
     articleForm.appendChild(csrfToken);
@@ -72,31 +75,74 @@ function submitArticleForm(e) {
         alert("Minimum price is 0.01");
         return false;
     }
-    newArticle();
-    //document.getElementById("article-form").submit();
+
+    document.getElementById("article-form").submit();
 
     alert("Form submitted!");
 }
 
+// =================================================================================================================
+
 createArticleForm();
 
-document.getElementById("article-form").addEventListener("submit", submitArticleForm);
+// document.getElementById("article-form").addEventListener("submit", submitArticleForm);
 
-function newArticle(){
+document.getElementById("submit-button")
+    .addEventListener("click", (e) => {
+        e.preventDefault();
+
+        let formData = new FormData();
+        collectFormData(formData);
+        sendFormData(formData);
+        newArticle();
+    });
+
+function collectFormData(formData) {
+    document.querySelectorAll("[id$='-input']")
+        .forEach(input => {
+            formData.append(input.name, input.value);
+        });
+}
+
+function sendFormData(formData) {
+    const articleForm = document.getElementById("article-form");
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/articles");
+    xhr.setRequestHeader("X-CSRF-TOKEN",
+        document.querySelector('meta[name="csrf-token"]').content
+    );
+
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            let message = '';
+            if (xhr.status === 200) {
+                message = "Erfolgreich";
+            } else {
+                message = "Fehler: " + xhr.status + " " + xhr.statusText;
+            }
+            articleForm.appendChild(document.createTextNode(message));
+        }
+    };
+    xhr.onerror = () => articleForm.appendChild("Fehler: " + xhr.status + " " + xhr.statusText);
+
+    xhr.send(formData);
+}
+function newArticle() {
     let xhr = new XMLHttpRequest();
     let name = document.getElementById("name-input").value;
     let price = document.getElementById("price-input").value;
     let desc = document.getElementById("desc-input").value;
     let url = "/api/articles";
-    let params = new URLSearchParams({'name':name,'price':price,'desc':desc});
-    xhr.open('POST',url);
-    xhr.onreadystatechange=()=> {
-        if(xhr.readyState===4){
-            if(xhr.status===200){
-                let result=JSON.parse(xhr.responseText);
-                document.getElementById("returntext").innerText="Article successfully saved with id :"+result['id'];
+    let params = new URLSearchParams({'name': name, 'price': price, 'desc': desc});
+    xhr.open('POST', url);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let result = JSON.parse(xhr.responseText);
+                document.getElementById("returntext").innerText = "Article successfully saved with id :" + result['id'];
                 console.log(result);
-            }else{
+            } else {
                 console.error(xhr.statusText);
             }
         }
