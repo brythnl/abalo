@@ -27,11 +27,29 @@ function addToCart(button) {
     xhr.send();
 }
 
-function removeFromCart(button) {
-    const articleRow = button.parentElement.parentElement;
-    const articleName = articleRow.querySelector(".article-name").textContent;
-
-    const articleIndex = cart.findIndex(article => article.name === articleName);
+function removeFromCart(articleid) {
+    let xhr = new XMLHttpRequest();
+    xhr.open(
+        "DELETE",
+        `/api/shoppingcart/${shoppingcartid}/articles/${articleid}`
+    );
+    xhr.setRequestHeader(
+        "X-CSRF-TOKEN",
+        document.querySelector('meta[name="csrf-token"]').content
+    );
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            console.log(xhr.responseText);
+        } else {
+            console.error(
+                "Failed to delete article from cart: ",
+                xhr.statusText
+            );
+        }
+    };
+    xhr.send();
+}
 
     if (articleIndex !== -1) {
         cart.splice(articleIndex, 1);
