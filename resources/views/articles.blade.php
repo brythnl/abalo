@@ -8,7 +8,7 @@
                 <input type="search" name="search" id="search">
                 <input type="submit" id="submit_search" value="submit" onclick="sendData()">
             </form>
-            <x-cart-overview></x-cart-overview>
+            <x-cart-overview :shoppingcartid="$shoppingcartid"/>
             <table>
                 <tbody id="articletable_body">
                     <tr>

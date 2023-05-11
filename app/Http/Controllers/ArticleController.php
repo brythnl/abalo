@@ -90,7 +90,6 @@ class ArticleController extends Controller
             $article->ab_create_date = date("Y-m-d H:i:s");
             $article->save();
             $res = AbArticle::query()->where(('ab_name'),'LIKE',$name)->get()->toArray();
-            $res = array("id"=>31,"name"=>$name,"price"=>$price,"desc"=>$desc);
             $res = json_encode($res);
             return response($res);
         }
