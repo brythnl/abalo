@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\AbUser;
+use App\Models\AbShoppingcart;
 
 /**
  * Write static login information to the session.
@@ -10,26 +12,39 @@ use Illuminate\Http\Request;
  */
 class AuthController extends Controller
 {
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $request->session()->put('abalo_user', 'visitor');
         $request->session()->put('abalo_mail', 'visitor@abalo.example.com');
         $request->session()->put('abalo_time', time());
+
+        $creatorid = AbUser::firstWhere("ab_name", $request->session()->get("abalo_user"))->id;
+        $shoppingCart = AbShoppingcart::where('ab_creator_id', $creatorid)
+            ->firstOr(fn () => AbShoppingcart::createNewCart($creatorid));
+
+        $shoppingcartid = $shoppingCart->id;
+
+        $request->session()->put('abalo_shoppingcartid', $shoppingcartid);
+
         return redirect()->route('haslogin');
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         $request->session()->flush();
         return redirect()->route('haslogin');
     }
 
-    public function isLoggedIn(Request $request) {
-        if($request->session()->has('abalo_user')) {
+
+    public function isLoggedIn(Request $request)
+    {
+        if ($request->session()->has('abalo_user')) {
             $r["user"] = $request->session()->get('abalo_user');
             $r["time"] = $request->session()->get('abalo_time');
             $r["mail"] = $request->session()->get('abalo_mail');
+            $r["shoppingcartid"] = $request->session()->get('abalo_shoppingcartid');
             $r["auth"] = "true";
-        }
-        else $r["auth"]="false";
+        } else $r["auth"] = "false";
         return response()->json($r);
     }
 }
