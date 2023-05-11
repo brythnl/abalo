@@ -67,30 +67,44 @@ function getItems(callback) {
 }
 
 function updateCart() {
-    /* Re-rendering the whole cart is necessary, to ensure accurate sync with data (array) along with reactivity,
-    * (instead of just adding and appending new elements each time button is pressed)
-    */
-
     // Reset Cart
     cartList.innerHTML = "";
 
+    let cartSum = 0;
+
     // Append each article into cart list
-    cart.forEach(article => {
-        const newArticle = document.createElement("li");
-        const newArticleName = document.createElement("p");
-        const newArticlePrice = document.createElement("p");
+    cartItems.forEach((item) => {
+        const newItem = document.createElement("li");
 
-        newArticleName.textContent = article.name;
-        newArticlePrice.textContent = article.price + " €";
+        const newItemName = document.createElement("p");
+        const newItemPrice = document.createElement("p");
+        newItemName.textContent = item.ab_name;
+        newItemPrice.textContent = item.ab_price + " €";
+        newItem.appendChild(newItemName);
+        newItem.appendChild(newItemPrice);
 
-        newArticle.appendChild(newArticleName);
-        newArticle.appendChild(newArticlePrice);
+        const cartRemoveButton = document.createElement("a");
+        cartRemoveButton.textContent = "-";
+        cartRemoveButton.classList.add("cart-remove-button");
+        cartRemoveButton.setAttribute("href", "#");
+        cartRemoveButton.setAttribute(
+            "style",
+            "text-decoration: none; color: red; font-weight: 1000"
+        );
+        cartRemoveButton.addEventListener("click", () => {
+            removeFromCart(item.id);
+            getItems(updateCart);
+        });
 
-        cartList.appendChild(newArticle);
-    })
+        newItem.appendChild(cartRemoveButton);
+
+        cartList.appendChild(newItem);
+
+        cartSum += item.ab_price;
+    });
 
     // Update cart sum
-    document.getElementById("cart-total").textContent = sumCart();
+    document.getElementById("cart-total").textContent = cartSum;
 }
 
 function sumCart() {
