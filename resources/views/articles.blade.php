@@ -10,7 +10,7 @@
                 <input type="submit" value="submit">
             </form>
 
-            <x-cart-overview></x-cart-overview>
+            <x-cart-overview :shoppingcartid="$shoppingcartid"/>
 
             <table>
                 <tbody>
