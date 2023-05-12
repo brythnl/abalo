@@ -94,6 +94,7 @@ document.getElementById("submit-button")
         let formData = new FormData();
         collectFormData(formData);
         sendFormData(formData);
+        newArticle();
     });
 
 function collectFormData(formData) {
@@ -126,4 +127,26 @@ function sendFormData(formData) {
     xhr.onerror = () => articleForm.appendChild("Fehler: " + xhr.status + " " + xhr.statusText);
 
     xhr.send(formData);
+}
+function newArticle(){
+    let xhr = new XMLHttpRequest();
+    let name = document.getElementById("name-input").value;
+    let price = document.getElementById("price-input").value;
+    let desc = document.getElementById("desc-input").value;
+    let url = "/api/articles";
+    let params = new URLSearchParams({'name':name,'price':price,'desc':desc});
+    xhr.open('POST',url);
+    xhr.onreadystatechange=()=> {
+        if(xhr.readyState===4){
+            if(xhr.status===200){
+                let result=JSON.parse(xhr.responseText);
+                document.getElementById("returntext").innerText="Article successfully saved with id :"+result['id'];
+                console.log(result);
+            }else{
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(params);
 }

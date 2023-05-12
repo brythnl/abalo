@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\AbArticle;
 use App\Models\AbShoppingcart;
 use App\Models\AbShoppingcartItem;
-
 class ShoppingcartController extends Controller
 {
     public function addToCart_api($shoppingcartid, $articleid)
