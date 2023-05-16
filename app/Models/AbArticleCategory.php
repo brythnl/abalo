@@ -14,4 +14,9 @@ class AbArticleCategory extends Model
     public $timestamps = false;
 
     protected $guarded = [];
+
+    public function abArticle()
+    {
+        return $this->hasMany(AbArticle::class);
+    }
 }

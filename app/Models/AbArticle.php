@@ -14,4 +14,9 @@ class AbArticle extends Model
     public $timestamps = false;
 
     protected $guarded = [];
+
+    public function abArticleCategory()
+    {
+        return $this->belongsTo(AbArticleCategory::class);
+    }
 }
