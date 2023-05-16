@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\AbUser;
 use App\Models\AbArticle;
 use App\Models\AbArticleCategory;
@@ -64,6 +65,22 @@ class DevelopmentData extends Seeder
                     'id' => (int) $data[0],
                     'ab_name' => $data[1],
                     'ab_parent' => $data[2] === 'NULL' ? NULL : (int) $data[2],
+                ]);
+            }
+            $firstline = false;
+        }
+        fclose($csv);
+
+        // ab_article_has_categories table seeder
+
+        $csv = fopen(base_path("database/data/article_has_articlecategory.csv"), "r");
+
+        $firstline = true;
+        while (($data = fgetcsv($csv, 2000, ";")) !== FALSE) {
+            if (!$firstline) {
+                DB::table('ab_article_has_categories')->insert([
+                    'ab_articlecategory_id' => (int) $data[0],
+                    'ab_article_id' => (int) $data[1],
                 ]);
             }
             $firstline = false;
