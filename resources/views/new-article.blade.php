@@ -10,7 +10,6 @@
 
     </div>
         <p id="returntext">
-
         </p>
 
 </x-layout>
