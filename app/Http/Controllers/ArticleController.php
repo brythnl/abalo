@@ -80,7 +80,7 @@ class ArticleController extends Controller
         if ($price <= 0) { $fehler = "Minimum price is 0.01"; }
 
         if (isset($fehler)) {
-            echo $fehler;
+            return response($fehler);
         } else {
             $article = new AbArticle();
             $article->ab_name = $name;
@@ -89,8 +89,9 @@ class ArticleController extends Controller
             $article->ab_creator_id = AbUser::firstWhere("ab_name", $request->session()->get("abalo_user"))->id;
             $article->ab_create_date = date("Y-m-d H:i:s");
             $article->save();
-            $res = AbArticle::query()->where(('ab_name'),'LIKE',$name)->get()->toArray();
-            $res = json_encode($res['id']);
+            $id = AbArticle::query()->where(('ab_name'),'LIKE','Speaker')->get()->toArray()['id'];
+            $res = array('id'=>$id);
+            $res = json_encode($res);
             return response($res);
         }
     }

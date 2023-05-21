@@ -93,7 +93,7 @@ document.getElementById("submit-button")
 
         let formData = new FormData();
         collectFormData(formData);
-        sendFormData(formData);
+        //sendFormData(formData);
         newArticle();
     });
 
@@ -129,6 +129,7 @@ function sendFormData(formData) {
     xhr.send(formData);
 }
 function newArticle(){
+    const articleForm = document.getElementById("article-form");
     let xhr = new XMLHttpRequest();
     let name = document.getElementById("name-input").value;
     let price = document.getElementById("price-input").value;
@@ -138,13 +139,15 @@ function newArticle(){
     xhr.open('POST',url);
     xhr.onreadystatechange=()=> {
         if(xhr.readyState===4){
+            let message = '';
             if(xhr.status===200){
                 let result=JSON.parse(xhr.responseText);
-                document.getElementById("returntext").innerText="Article successfully saved with id :"+result['id'];
+                message = "Article successfully saved with id :"+result['id']+result['name']+result['price'];
                 console.log(result);
             }else{
-                console.error(xhr.statusText);
+                message = "Fehler: " + xhr.status + " " + xhr.statusText;
             }
+            articleForm.appendChild(document.createTextNode(message));
         }
     };
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
