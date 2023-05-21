@@ -134,15 +134,16 @@ function newArticle(){
     let name = document.getElementById("name-input").value;
     let price = document.getElementById("price-input").value;
     let desc = document.getElementById("desc-input").value;
+    let user = document.getElementById("user-name").value;
     let url = "/api/articles";
-    let params = new URLSearchParams({'name':name,'price':price,'desc':desc});
+    let params = new URLSearchParams({'name':name,'price':price,'desc':desc,'user-name':user});
     xhr.open('POST',url);
     xhr.onreadystatechange=()=> {
         if(xhr.readyState===4){
             let message = '';
             if(xhr.status===200){
                 let result=JSON.parse(xhr.responseText);
-                message = "Article successfully saved with id :"+result['id']+result['name']+result['price'];
+                message = "Article successfully saved with id :"+result['id'];
                 console.log(result);
             }else{
                 message = "Fehler: " + xhr.status + " " + xhr.statusText;
