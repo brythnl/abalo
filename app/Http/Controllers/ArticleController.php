@@ -53,9 +53,9 @@ class ArticleController extends Controller
         $price = trim($request->input("price") ?? NULL);
         $desc = trim($request->input("desc") ?? NULL);
 
+
         if (strlen($name) < 3) { $fehler = "Minimal name length is 3 characters"; }
         if ($price <= 0) { $fehler = "Minimum price is 0.01"; }
-
         if (isset($fehler)) {
             echo $fehler;
         } else {
@@ -75,22 +75,25 @@ class ArticleController extends Controller
         $name = trim($_POST["name"] ?? NULL);
         $price = trim($_POST["price"] ?? NULL);
         $desc = trim($_POST["desc"] ?? NULL);
+        $user = trim($request->input("user-name")??NULL);
 
         if (strlen($name) < 3) { $fehler = "Minimal name length is 3 characters"; }
         if ($price <= 0) { $fehler = "Minimum price is 0.01"; }
+        if(!$user){$fehler = "You have to login before creating a new article";}
 
         if (isset($fehler)) {
-            echo $fehler;
+            return response($fehler);
         } else {
             $article = new AbArticle();
             $article->ab_name = $name;
             $article->ab_price = $price;
             $article->ab_description = $desc;
-            $article->ab_creator_id = AbUser::firstWhere("ab_name", $request->session()->get("abalo_user"))->id;
+            $article->ab_creator_id = AbUser::firstWhere("ab_name", $user)->id;
             $article->ab_create_date = date("Y-m-d H:i:s");
             $article->save();
-            $res = AbArticle::query()->where(('ab_name'),'LIKE',$name)->get()->toArray();
-            $res = json_encode($res['id']);
+            $id = AbArticle::firstWhere("ab_name",$name)->id;
+            $res = array('id'=>$id);
+            $res = json_encode($res);
             return response($res);
         }
     }
