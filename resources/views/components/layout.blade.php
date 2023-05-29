@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="{{ asset('/js/cookiecheck.js') }}" defer></script>
     <link rel="stylesheet" href="{{ asset('/css/stylesheet.css') }}">
 
