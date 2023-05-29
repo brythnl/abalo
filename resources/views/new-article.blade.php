@@ -5,9 +5,8 @@
     @if (session('successMessage'))
         <p>{{ session('successMessage') }}</p>
     @endif
-
     <div id="article-form-container">
-
+        <input type="hidden" id="user-name" name="user-name" value="{{session('abalo_user')}}">
     </div>
         <p id="returntext">
         </p>
