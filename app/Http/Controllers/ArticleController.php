@@ -9,7 +9,7 @@ use Psy\Util\Json;
 class ArticleController extends Controller
 {
     public function getProductList(Request $request) {
-        $filter = $_GET['search']??'';
+        /*$filter = $_GET['search']??'';
         //$filter = pg_escape_string($filter);
         $res = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
         $result = array();
@@ -23,15 +23,14 @@ class ArticleController extends Controller
             $result[$i]=array("id"=>$item['id'],"picture"=>$dir,"name"=>$item['ab_name'],
                 "price"=>$item['ab_price'],"description"=>$item['ab_description']);
             $i++;
-        }
-        return view('articles',["filter"=>$filter,
-            "result"=>$result,
+        }*/
+        return view('articles',[//"filter"=>$filter,
+            //"result"=>$result,
             'shoppingcartid' => $request->session()->get('abalo_shoppingcartid')]);
     }
     public function getProduct_api(Request $request){
-        $filter = $request->get('search');
         //$filter = pg_escape_string($filter);
-        $res = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
+        $res = AbArticle::all();
         $result = array();
         $i=0;
         foreach ($res as $item) {
