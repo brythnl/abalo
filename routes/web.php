@@ -19,6 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// homepage
+Route::view('/newsite', 'homepage');
+
 // authentication
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
