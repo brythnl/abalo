@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoppingcartController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PaginationApi;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,6 @@ Route::get('/shoppingcart/items/{shoppingcartid}', [ShoppingcartController::clas
 
 Route::get('/articles',[ArticleController::class,'getProduct_api']);
 Route::post('/articles',[ArticleController::class,'newArticle_api']);
+
+Route::get('/page',[PaginationApi::class,'Pagination_Api']);
+Route::get('/pageCount',[PaginationApi::class,'getPageCount_api']);

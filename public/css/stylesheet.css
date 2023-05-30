@@ -77,3 +77,14 @@ body{
 main{
     margin-top: 50px;
 }
+
+/*
+ArticleList-css
+ */
+.pageList{
+    margin: auto;
+}
+.itemsList{
+    border: 1px solid;
+    margin: auto;
+}
