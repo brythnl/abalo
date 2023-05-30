@@ -6,7 +6,7 @@ export default {
             this.$emit('toggle-impressum');
         },
     },
-    template: `<div>
+    template: `<footer>
         <a @click="showImpressum">Impressum</a>
-    </div>`
+    </footer>`
 }
