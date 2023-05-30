@@ -20,6 +20,9 @@ export default {
             }
         }
     },
+    mounted() {
+        window.addEventListener('click', this.closeDropdown);
+    },
     template: `
         <nav>
             <ul class="navbar" id="navBar">
