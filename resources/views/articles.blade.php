@@ -3,11 +3,10 @@
 
         <x-navbar></x-navbar>
         <main>
-            <form method="GET" action="">
-                <label for="search_text" @if($filter != null) value="{{$filter}}" @else placeholder="Search Text" @endif>search article name :</label>
-                <input type="search" name="search" id="search">
-                <input type="submit" id="submit_search" value="submit" onclick="sendData()">
-            </form>
+            <div id="app">
+            <label for="search_text" >search article name :</label>
+            <input type="text" name="search" id="search" v-model="currentInput">
+
             <x-cart-overview :shoppingcartid="$shoppingcartid"/>
             <table>
                 <tbody id="articletable_body">
@@ -17,21 +16,21 @@
                         <th>price</th>
                         <th>description</th>
                     </tr>
-                    @foreach ($result as $table)
-                        <tr id="{{ $table['id'] }}">
-                            <td><img alt="{{ $table['name'] }}" src={{ $table['picture'] }}></td>
-                            <td class="article-name">{{ $table['name'] }}</td>
-                            <td class="article-price">{{ $table['price'] }}</td>
-                            <td class="article-desc">{{ $table['description'] }}</td>
-                            <td><a href=# class="add-to-cart-button" style="text-decoration: none; color: black;">+</a>
-                            </td>
-                            <td><a href=# class="remove-from-cart-button"
-                                   style="text-decoration: none; color: black;">-</a>
-                            </td>
-                        </tr>
-                    @endforeach
+                    <tr v-for="article in filteredArticles" v-bind:id="article.id">
+                        <td class="article-picture"><img v-bind:src="article.picture" v-bind:alt="article.name"></td>
+                        <td class="article-name">@{{ article.name }}</td>
+                        <td class="article-price">@{{ article.price }}</td>
+                        <td class="article-desc">@{{ article.description }}</td>
+                        <td><a href=# class="add-to-cart-button" style="text-decoration: none; color: black;">+</a>
+                        </td>
+                        <td><a href=# class="remove-from-cart-button"
+                               style="text-decoration: none; color: black;">-</a>
+                        </td>
+
+                    </tr>
                 </tbody>
-            </table>
-            <script src="{{ asset('/js/articles.js') }}"></script>
+            </table>-
+            </div>
+            <script type="module" src="{{ asset('/js/articles.js') }}"></script>
         </main>
 </x-layout>
