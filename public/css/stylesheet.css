@@ -49,8 +49,8 @@ navbar-css
     font-size: 16px;
 }
 .dropList {
-    position:relative;
-    display: none;
+    width: 100%;
+    position: absolute;
     padding: 0;
     color: white;
     grid-column-start: 4;
