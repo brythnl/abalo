@@ -15,7 +15,7 @@ export default {
             this.isDropdownVisible = !this.isDropdownVisible;
         },
         closeDropdown(event) {
-            if (!event.target.matches('.Dropdown-button')) {
+            if (!event.target.matches('.Dropdown-button') && !event.target.matches('.dropList > li')) {
                 this.isDropdownVisible = false;
             }
         }
