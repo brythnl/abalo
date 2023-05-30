@@ -49,6 +49,7 @@ navbar-css
     font-size: 16px;
 }
 .dropList {
+    /* for non-Vue component: position: relative; display: none; */
     width: 100%;
     position: absolute;
     padding: 0;
