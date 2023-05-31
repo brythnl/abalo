@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\NewSiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
