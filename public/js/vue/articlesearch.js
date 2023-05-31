@@ -4,6 +4,7 @@ export default{
             articles:[],
             searchedArticle:[],
             currentInput:"",
+            Input:"",
             page:[]
         };
     },
@@ -18,7 +19,7 @@ export default{
                 if(xhr.readyState===4){
                     if(xhr.status===200){
                         this.page=JSON.parse(xhr.responseText);
-                        console.log(this.articles);
+                        console.log(this.page);
                     }else{
                         console.error(xhr.statusText);
                     }
@@ -44,38 +45,44 @@ export default{
             xhr.open('GET', "/api/page?page="+page);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(params);
+        },
+        searchArticle:function(){
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        this.searchedArticle = JSON.parse(xhr.responseText);
+                        console.log(this.searchedArticle);
+                    } else {
+                        console.error(xhr.statusText);
+                    }
+                }
+            };
+            let params = new URLSearchParams({'SeacrchText': this.currentInput});
+            xhr.open('GET', "/api/page?SearchText=" + this.currentInput);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(params);
         }
     },
     computed: {
-        filteredArticles(){
-            if(this.currentInput.length>=3) {
-                let xhr = new XMLHttpRequest();
-                xhr.onreadystatechange=()=> {
-                    if(xhr.readyState===4){
-                        if(xhr.status===200){
-                            this.searchedArticle=JSON.parse(xhr.responseText);
-                            console.log(this.searchedArticle);
-                        }else{
-                            console.error(xhr.statusText);
-                        }
+        filteredArticles() {
+                if (this.Input.length >= 3 ) {
+                    if(this.currentInput!==this.Input) {
+                        this.currentInput=this.Input;
+                        this.searchArticle()
                     }
-                };
-                let params = new URLSearchParams({'SeacrchText':this.currentInput});
-                xhr.open('GET', "/api/page?SearchText="+this.currentInput);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.send(params);
-                return this.searchedArticle;
-            }else{
-                return this.articles;
-            }
+                    return this.searchedArticle;
+                }else{
+                    return this.articles;
+                }
+
         }
     },
     template:`
         <main>
 
         <label for="search_text" >search article name :</label>
-        <input type="text" name="search" id="search" v-model="currentInput">
-        <cart-site></cart-site>
+        <input type="text" name="search" id="search" v-model="Input">
         <table class="ItemList">
             <tbody id="articletable_body">
             <tr>
@@ -98,7 +105,7 @@ export default{
             </tr>
             </tbody>
         </table>
-        <table class="pageList" v-if="currentInput.length<3">
+        <table class="pageList" v-if="Input.length<3">
             <tbody>
             <tr>
                 <td v-for="count in page"><button v-on:click="pagedArticle(count)">{{count}}</button></td>

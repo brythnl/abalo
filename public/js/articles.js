@@ -3,14 +3,15 @@ Vue.createApp({
     data() {
         return{
             articles:[],
-            currentInput:""
+            currentInput:"",
+            Input:""
         };
     },
     mounted(){
-        this.loadArticles();
+        this.loadArticles("");
     },
     methods: {
-        loadArticles: function (){
+        loadArticles: function (searchText){
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange=()=> {
                 if(xhr.readyState===4){
@@ -23,7 +24,7 @@ Vue.createApp({
                     }
                 }
             };
-            xhr.open('GET', "/api/articles");
+            xhr.open('GET', "/api/articles?SearchText="+searchText);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send();
 
@@ -31,9 +32,16 @@ Vue.createApp({
     },
     computed: {
             filteredArticles(){
-                if(this.currentInput.length>=3) {
-                    let filtered = this.articles.filter(article => article.name.toLowerCase().includes(this.currentInput.toLowerCase()));
-                    return filtered.slice(0, 5);
+                if(this.currentInput!==this.Input) {
+                    if (this.currentInput.length >= 2) {
+                        this.Input = this.currentInput;
+                        this.loadArticles(this.Input);
+                        let filtered = this.articles.filter(article => article.name.toLowerCase().includes(this.currentInput.toLowerCase()));
+                        return filtered.slice(0, 5);
+                    } else {
+                        this.loadArticles("");
+                        return this.articles;
+                    }
                 }else{
                     return this.articles;
                 }
