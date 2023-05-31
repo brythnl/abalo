@@ -29,8 +29,12 @@ class ArticleController extends Controller
             'shoppingcartid' => $request->session()->get('abalo_shoppingcartid')]);
     }
     public function getProduct_api(Request $request){
-        //$filter = pg_escape_string($filter);
-        $res = AbArticle::all();
+        if(isset($_GET['SearchText'])) {
+            $filter = $_GET['SearchText'];
+        }else{
+            $filter = "";
+        }
+        $res = AbArticle::query()->where(('ab_name'),'ILIKE','%'.strtolower($filter).'%')->get()->toArray();
         $result = array();
         $i=0;
         foreach ($res as $item) {
