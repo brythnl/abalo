@@ -83,6 +83,7 @@ export default{
 
         <label for="search_text" >search article name :</label>
         <input type="text" name="search" id="search" v-model="Input">
+
         <table class="ItemList">
             <tbody id="articletable_body">
             <tr>
