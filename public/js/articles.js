@@ -34,7 +34,7 @@ Vue.createApp({
             filteredArticles(){
                 if(this.currentInput!==this.Input) {
                     this.Input = this.currentInput;
-                    if (this.currentInput.length >= 2) {
+                    if (this.currentInput.length >= 3) {
                         this.loadArticles(this.Input);
                         let filtered = this.articles.filter(article => article.name.toLowerCase().includes(this.currentInput.toLowerCase()));
                         return filtered.slice(0, 5);
