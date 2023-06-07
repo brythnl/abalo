@@ -6,5 +6,5 @@
         <site-footer @toggle-impressum="toggleImpressum"></site-footer>
     </div>
 
-    <script type="module" src="{{ asset('/js/vue/app.js') }}"></script>
+    @vite('resources/js/app.js')
 </x-layout>
