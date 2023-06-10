@@ -78,13 +78,16 @@ class ArticleController extends Controller
         $name = trim($_POST["name"] ?? NULL);
         $price = trim($_POST["price"] ?? NULL);
         $desc = trim($_POST["desc"] ?? NULL);
-        $user = trim($request->input("user-name")??NULL);
+        $user = trim($_POST["user"]?? NULL);
+
 
         if (strlen($name) < 3) { $fehler = "Minimal name length is 3 characters"; }
         if ($price <= 0) { $fehler = "Minimum price is 0.01"; }
         if(!$user){$fehler = "You have to login before creating a new article";}
 
         if (isset($fehler)) {
+            $fehler = array('response'=>$fehler);
+            $fehler = json_encode($fehler);
             return response($fehler);
         } else {
             $article = new AbArticle();
@@ -95,7 +98,7 @@ class ArticleController extends Controller
             $article->ab_create_date = date("Y-m-d H:i:s");
             $article->save();
             $id = AbArticle::firstWhere("ab_name",$name)->id;
-            $res = array('id'=>$id);
+            $res = array('response'=>"Article successfully saved with id :".$id);
             $res = json_encode($res);
             return response($res);
         }

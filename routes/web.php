@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 // homepage
 Route::view('/newsite', 'homepage');
+Route::view('/nnewarticle','new-article-newsite');
 
 // authentication
 Route::get('/login', [AuthController::class, 'login'])->name('login');
