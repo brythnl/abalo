@@ -6,7 +6,11 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="{{ asset('/js/cookiecheck.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ asset('/css/stylesheet.css') }}">
+    @vite(['resources/css/app.scss'])
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     <title>{{ $title ?? 'Abalo' }}</title>
 </head>

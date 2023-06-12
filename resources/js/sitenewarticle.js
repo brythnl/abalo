@@ -27,20 +27,22 @@ export default{
         createArticleForm: function (){
             const nameLabel = this.createLabel("name", "Name: ");
             const nameInput = this.createInput("text", "name", "name-input");
+            nameLabel.classList.add("article-form-container__nameTxt");
+            nameInput.classList.add("article-form-container__nameIn");
 
             const priceLabel = this.createLabel("price", "Price: ");
             const priceInput = this.createInput("number", "price", "price-input");
+            priceInput.classList.add("article-form-container__priceIn");
+            priceLabel.classList.add("article-form-container__priceTxt")
 
             const descLabel = this.createLabel("desc", "Description: ");
             const descInput = document.createElement("textarea");
             descInput.setAttribute("name", "desc");
             descInput.setAttribute("id", "desc-input");
+            descInput.classList.add("article-form-container__descIn");
+            descLabel.classList.add("article-form-container__descTxt");
 
-            const submitButton = document.createElement("input");
-            submitButton.setAttribute("id", "submit-button");
-            submitButton.setAttribute("type", "button");
-            submitButton.setAttribute("value", "Speichern");
-            submitButton.setAttribute("v-on:click","submitform")
+
 
             const csrfToken = document.createElement("input");
             csrfToken.setAttribute("type", "hidden");
@@ -59,7 +61,6 @@ export default{
             articleForm.appendChild(priceInput);
             articleForm.appendChild(descLabel);
             articleForm.appendChild(descInput);
-            //articleForm.appendChild(submitButton);
 
             document.getElementById("article-form-container")
         },
@@ -92,10 +93,10 @@ export default{
         }
     }, template:`
         <main>
-        <div id="article-form-container">
+        <div id="article-form-container" class="article-form-container">
         </div>
-        <input type="button" v-on:click="submitform" value="Speichern">
-        <p id="returntext">
+        <input type="button" v-on:click="submitform" value="Speichern" class="article-form-container__saveButton">
+        <p id="returntext article-form-container__returntext">
         </p>
         </main>
     `

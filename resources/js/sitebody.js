@@ -89,25 +89,27 @@ export default {
         <main>
             <impressum v-if="showImpressum"></impressum>
             <div v-else>
-                <label for="search_text" >search article name :</label>
-                <input type="text" name="search" id="search" v-model="Input">
+                <div class="search">
+                <label for="search_text" class="search__label">search article name :</label>
+                <input type="text" name="search" id="search" v-model="Input" class="search__text">
+                </div>
 
-                <table class="ItemList">
+                <table class="ItemTable">
                     <tbody id="articletable_body">
-                    <tr>
+                    <tr class="ItemTable__Header">
                         <th>images</th>
                         <th>name</th>
                         <th>price</th>
                         <th>description</th>
                     </tr>
                     <tr v-for="article in filteredArticles" v-bind:id="article.id">
-                        <td class="article-picture"><img v-bind:src="article.picture" v-bind:alt="article.name"></td>
-                        <td class="article-name">{{ article.name }}</td>
-                        <td class="article-price">{{ article.price }}</td>
-                        <td class="article-desc">{{ article.description }}</td>
-                        <td><a href=# class="add-to-cart-button" style="text-decoration: none; color: black;">+</a>
+                        <td class="article-picture ItemTable__Picture"><img v-bind:src="article.picture" v-bind:alt="article.name" class="ItemTable__Img"></td>
+                        <td class="article-name ItemTable__Name">{{ article.name }}</td>
+                        <td class="article-price ItemTable__price">{{ article.price }}</td>
+                        <td class="article-desc ItemTable__desc">{{ article.description }}</td>
+                        <td><a href=# class="add-to-cart-button ItemTable__AddButton" style="text-decoration: none; color: black;">+</a>
                         </td>
-                        <td><a href=# class="remove-from-cart-button"
+                        <td><a href=# class="remove-from-cart-button ItemTable__RemButton"
                                style="text-decoration: none; color: black;">-</a>
                         </td>
 
@@ -117,7 +119,7 @@ export default {
                 <table class="pageList" v-if="Input.length<3">
                     <tbody>
                     <tr>
-                        <td v-for="count in page"><button v-on:click="pagedArticle(count)">{{count}}</button></td>
+                        <td v-for="count in page" class="pageList__number"><button v-on:click="pagedArticle(count) " class="pageList__button">{{count}}</button></td>
                     </tr>
                     </tbody>
                 </table>

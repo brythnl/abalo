@@ -1,0 +1,21 @@
+@import 'navbar';
+@import 'Articles';
+@import 'newArticle';
+$bodycolor:#FFF4F4;
+$footcolor : #606C5D;
+body{
+    margin: 0;
+    background-color: $bodycolor;
+}
+main{
+    margin: 50px 20px 0 20px;
+    height: 100%;
+}
+a{
+    padding: 0;
+}
+footer{
+    text-align:center ;
+    background-color: $footcolor;
+    padding: 15px;
+}
