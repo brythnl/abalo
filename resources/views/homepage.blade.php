@@ -1,5 +1,6 @@
 <x-layout>
     <div id="app">
+        <dock-menu></dock-menu>
         <nav-bar></nav-bar>
         <site-header></site-header>
         <site-body :show-impressum="showImpressum"></site-body>
