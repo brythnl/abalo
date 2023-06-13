@@ -1,0 +1,71 @@
+$fonts : Roboto, sans-serif;
+$bgcolor : #F7E6C4;
+$tablecol : #F1C376;
+
+.search{
+    text-align: center;
+    background-color: $tablecol;
+    &__label{
+        font: 20px bold $fonts;
+    }
+    &__text{
+        border: white 10px;
+        background-color: $bgcolor;
+        margin: 0 0 20px 0 ;
+    }
+}
+@mixin rounding(){
+    border: solid transparent 10px;
+    background-color: $bgcolor;
+    border-radius: 10px;
+}
+@mixin hovercolor($property){
+    :hover{
+        background-color: $property;
+    }
+}
+.ItemTable{
+    background-color: $tablecol;
+    font : 16px $fonts;
+    margin: auto;
+    width: 100%;
+    border-spacing: 10px;
+    &__Header{
+        font: 30px bold;
+    }
+    tr{
+        @include rounding();
+        font : 25px $fonts;
+    }
+    td{
+        @include rounding();
+        text-align: center;
+    }
+    &__Img{
+        margin: auto;
+    }
+    &__AddButton{
+       padding: 0 25px;
+        @include hovercolor($tablecol);
+    }
+    &__RemButton{
+        padding: 0 25px;
+        @include hovercolor($tablecol);
+    }
+}
+
+.pageList{
+    margin: auto;
+    &__number{
+        border: 1px solid;
+        margin: auto;
+        background-color: $bgcolor;
+        @include hovercolor($tablecol);
+    }
+    &__button{
+        background-color: transparent;
+        border: 0px;
+
+    }
+}
+

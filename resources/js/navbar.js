@@ -26,14 +26,14 @@ export default {
     template: `
         <nav>
             <ul class="navbar" id="navBar">
-                <li v-for="item in menu" :key="item[0]">
-                    <button v-if="item.length > 1" class="Dropdown-button" @click="toggleDropdown">
+                <li v-for="item in menu" :key="item[0]" >
+                    <button v-if="item.length > 1" class="Dropdown-button navbar__Drop--Button" @click="toggleDropdown">
                         {{ item[0] }}
                     </button>
-                    <a v-else>{{ item[0] }}</a>
-                    <ul v-if="item.length > 1" class="dropList" v-show="isDropdownVisible">
+                    <button v-else>{{ item[0] }}</button>
+                    <ul v-if="item.length > 1" class="dropList navbar__Drop--List" v-show="isDropdownVisible">
                         <li v-for="(subItem, index) in item.slice(1)" :key="index">
-                            <a>{{ subItem }}</a>
+                            <button>{{ subItem }}</button>
                         </li>
                     </ul>
                 </li>

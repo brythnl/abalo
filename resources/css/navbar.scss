@@ -1,0 +1,77 @@
+$fonts : Helvetica, sans-serif;
+
+$backcolor : #606C5D;
+$hovercolor : #263A29;
+
+@mixin hovercolor($properties){
+    :hover{
+        background-color: $properties;
+    }
+}
+@mixin buttonstyle(){
+    width: 100%;
+    color: white;
+    margin-top: auto;
+    background-color: $backcolor;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.navbar {
+    list-style-type: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto;
+    font-family: $fonts;
+    background-color: $backcolor;
+    padding: 0;
+    @include hovercolor($hovercolor);
+    li{
+        background-color: $backcolor;
+        margin-top: auto;
+        height: 100%;
+        text-align: center;
+        button{
+            @include buttonstyle();
+        }
+
+    }
+    &__Drop{
+        &--Button{
+            width: 100%;
+            color: white;
+            margin-top: auto;
+            background-color: transparent;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        &--List{
+            /* for non-Vue component: position: relative; display: none;*/
+            width: 100%;
+            position: absolute;
+            padding: 0;
+            color: white;
+            grid-column-start: 4;
+            grid-template-rows: auto auto;
+            background-color: $backcolor;
+            list-style-type: none;
+            li{
+                height: 30px;
+                color: white;
+                @include hovercolor($hovercolor);
+            }
+        }
+
+    }
+}
