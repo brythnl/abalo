@@ -1,6 +1,7 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
+import VueScrollUp from 'vue-scroll-up';
 import NavBar from './navbar.js';
 import SiteHeader from './siteheader.js';
 import SiteBody from './sitebody.js';
@@ -14,6 +15,7 @@ Vue.createApp({
         SiteBody,
         SiteFooter,
         NewArticle,
+        VueScrollUp
     },
     data() {
         return {
