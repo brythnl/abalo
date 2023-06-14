@@ -69,6 +69,15 @@ export default {
             xhr.open('GET', "/api/page?SearchText=" + this.currentInput);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(params);
+        },
+        verkauft: function() {
+            axios.post('/api/articles/1/sold/5')
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     },
     computed: {
