@@ -1,4 +1,5 @@
 import Impressum from "./impressum.js";
+import axios from "axios";
 
 export default {
     props: ['show-impressum'],
