@@ -8,6 +8,13 @@ import SiteBody from './sitebody.js';
 import SiteFooter from './sitefooter.js';
 import NewArticle from './sitenewarticle.js';
 
+let conn = new WebSocket('ws://localhost:8085/nachricht');
+
+conn.onmessage = function(e) {
+    console.log('Received', e.data);
+    alert(e.data);
+};
+
 Vue.createApp({
     components: {
         NavBar,
