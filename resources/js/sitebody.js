@@ -112,7 +112,7 @@ export default {
                         <td><a href=# class="remove-from-cart-button ItemTable__RemButton"
                                style="text-decoration: none; color: black;">-</a>
                         </td>
-
+                        <td><a href=# @click="verkauft">Verkauft</a></td>
                     </tr>
                     </tbody>
                 </table>
