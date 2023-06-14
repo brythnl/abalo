@@ -104,7 +104,21 @@ class ArticleController extends Controller
         }
     }
 
-
-
-
+    public function soldArticle_api($id, $userid)
+    {
+        $article = AbArticle::find($id);
+        if (isset($userid) && $article->ab_creator_id == $userid) {
+            $articleName = $article->ab_name;
+            \Ratchet\Client\connect("ws://localhost:8085/nachricht")->then(function($conn) use ($articleName){
+                $conn->on('message', function($msg) use ($conn) {
+                    echo "Received: {$msg}\n";
+                    $conn->close();
+                });
+                $conn->send("Großartig! Ihr Artikel: $articleName wurde erfolgreich verkauft!");
+                $conn->close();
+            }, function ($e) {
+                echo "Could not connect: {$e->getMessage()}\n";
+            });
+        }
+    }
 }
