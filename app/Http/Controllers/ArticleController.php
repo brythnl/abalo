@@ -121,4 +121,31 @@ class ArticleController extends Controller
             });
         }
     }
+    public function getMyArticle_api(Request $request){
+        $user = trim($_SESSION['abalo_user'] ?? NULL);
+        if($user){
+            $id = AbUser::firstWhere("ab_name", $user)->id;
+            $res = AbArticle::query()->where("ab_creator_id","LIKE",$user)->get()->toArray();
+        }
+        $result = array();
+        $i=0;
+        foreach ($res as $item) {
+            if(file_exists("./images/articles/$item[id].jpg")){
+                $dir="./images/articles/$item[id].jpg";
+            }else{
+                $dir="./images/articles/$item[id].png";
+            }
+            $result[$i]=array("id"=>$item['id'],"picture"=>$dir,"name"=>$item['ab_name'],
+                "price"=>$item['ab_price'],"description"=>$item['ab_description']);
+            $i++;
+        }
+        $result = json_encode($result);
+        return response($result);
+
+
+    }
+
+
+
+
 }

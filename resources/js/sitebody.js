@@ -1,5 +1,4 @@
 import Impressum from "./impressum.js";
-import axios from "axios";
 
 export default {
     props: ['show-impressum'],
@@ -22,6 +21,8 @@ export default {
     methods: {
         init: function (){
             this.pagedArticle(1);
+            this.loginStatus=document.getElementById('user-name').value;
+            console.log(this.loginStatus);
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange=()=> {
                 if(xhr.readyState===4){
@@ -102,6 +103,9 @@ export default {
                 <div class="search">
                 <label for="search_text" class="search__label">search article name :</label>
                 <input type="text" name="search" id="search" v-model="Input" class="search__text">
+                </div>
+                <div class="search" v-if="loginStatus">
+                    <a href="/myarticle">My Article</a>
                 </div>
 
                 <table class="ItemTable">

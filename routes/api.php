@@ -20,7 +20,6 @@ use App\Http\Controllers\PaginationApi;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::post('/shoppingcart/{shoppingcartid}/{articleid}', [ShoppingcartController::class, 'addToCart_api']);
 Route::delete('/shoppingcart/{shoppingcartid}/articles/{articleid}', [ShoppingcartController::class, 'removeFromCart_api']);
 Route::get('/shoppingcart/items/{shoppingcartid}', [ShoppingcartController::class, 'getCartItems_api']);
@@ -30,5 +29,6 @@ Route::post('/articles',[ArticleController::class,'newArticle_api']);
 
 Route::get('/page',[PaginationApi::class,'Pagination_Api']);
 Route::get('/pageCount',[PaginationApi::class,'getPageCount_api']);
+Route::get('/myArticle',[ArticleController::class,'getMyArticle_api']);
 
 Route::post('/articles/{id}/sold/{userid}',[ArticleController::class,'soldArticle_api']);
