@@ -7,6 +7,7 @@ import SiteHeader from './siteheader.js';
 import SiteBody from './sitebody.js';
 import SiteFooter from './sitefooter.js';
 import NewArticle from './sitenewarticle.js';
+import MyArticle from './myarticle.js';
 
 let conn = new WebSocket('ws://localhost:8085/nachricht');
 
@@ -22,7 +23,8 @@ Vue.createApp({
         SiteBody,
         SiteFooter,
         NewArticle,
-        VueScrollUp
+        VueScrollUp,
+        MyArticle
     },
     data() {
         return {

@@ -80,7 +80,7 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
-        }
+        },
     },
     computed: {
         filteredArticles() {
@@ -104,7 +104,7 @@ export default {
                 <label for="search_text" class="search__label">search article name :</label>
                 <input type="text" name="search" id="search" v-model="Input" class="search__text">
                 </div>
-                <div class="search" v-if="loginStatus">
+                <div class="search" v-if="loginStatus!=0">
                     <a href="/myarticle">My Article</a>
                 </div>
 

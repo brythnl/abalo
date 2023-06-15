@@ -1,17 +1,12 @@
 import Impressum from "./impressum.js";
-import myarticle from "./myarticle";
 
 
 export default {
-    computed: {
-        myarticle() {
-            return myarticle
-        }
-    },
     props: ['show-impressum'],
     data(){
         return{
-            myItem:[]
+            myItem:[],
+            username:""
         };
     },
     components :{
@@ -21,6 +16,8 @@ export default {
     },
     methods:{
         init: function (){
+            this.username=document.getElementById('user-name').value;
+            console.log(this.username);
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange=()=> {
                 if(xhr.readyState===4){
@@ -32,10 +29,14 @@ export default {
                     }
                 }
             };
-            xhr.open('GET', "/api/myArticle");
+            xhr.open('GET', "/api/myArticle?user="+this.username);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send();
+        },
+        ArticleOffer: function (id){
+
         }
+
     },
     template:`
         <main>
@@ -49,7 +50,7 @@ export default {
                     <th>price</th>
                     <th>description</th>
                 </tr>
-                <tr v-for="article in myarticle" v-bind:id="article.id">
+                <tr v-for="article in myItem" v-bind:id="article.id">
                     <td class="article-picture ItemTable__Picture"><img v-bind:src="article.picture" v-bind:alt="article.name" class="ItemTable__Img"></td>
                     <td class="article-name ItemTable__Name">{{ article.name }}</td>
                     <td class="article-price ItemTable__price">{{ article.price }}</td>

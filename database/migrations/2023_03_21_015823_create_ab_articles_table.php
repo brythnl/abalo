@@ -26,6 +26,7 @@ return new class extends Migration
                 ->comment('Zeitpunkt der Erstellung des Artikels');
 
             $table->foreign('ab_creator_id')->references('id')->on('ab_users');
+            $table->boolean('ab_offer_status')->default(false);
         });
     }
 
