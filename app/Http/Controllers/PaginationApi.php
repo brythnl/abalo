@@ -25,7 +25,7 @@ class PaginationApi
                 $dir="./images/articles/$item[id].png";
             }
             $result[$i]=array("id"=>$item['id'],"picture"=>$dir,"name"=>$item['ab_name'],
-                "price"=>$item['ab_price'],"description"=>$item['ab_description']);
+                "price"=>$item['ab_price'],"description"=>$item['ab_description'],"offer"=>$item['ab_offer_status']);
             $i++;
         }
         $result = json_encode($result);

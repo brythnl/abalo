@@ -28,6 +28,21 @@ class AuthController extends Controller
 
         return redirect()->route('haslogin');
     }
+    public function sellerlogin(Request $request){
+        $request->session()->put('abalo_user', 'seller');
+        $request->session()->put('abalo_mail', 'seller@abalo.example.com');
+        $request->session()->put('abalo_time', time());
+
+        $creatorid = AbUser::firstWhere("ab_name", $request->session()->get("abalo_user"))->id;
+        $shoppingCart = AbShoppingcart::where('ab_creator_id', $creatorid)
+            ->firstOr(fn () => AbShoppingcart::createNewCart($creatorid));
+
+        $shoppingcartid = $shoppingCart->id;
+
+        $request->session()->put('abalo_shoppingcartid', $shoppingcartid);
+
+        return redirect()->route('haslogin');
+    }
 
     public function logout(Request $request)
     {

@@ -23,9 +23,11 @@ Route::get('/', function () {
 // homepage
 Route::view('/newsite', 'homepage');
 Route::view('/nnewarticle','new-article-newsite');
+Route::view('/myarticle','myarticle');
 
 // authentication
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/sellerlogin', [AuthController::class, 'sellerlogin'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/isloggedin', [AuthController::class, 'isloggedin'])->name('haslogin');
 

@@ -8,6 +8,9 @@ export default {
                 ["Unternehmen", "Philosophie", "Karriere"],
             ],
             isDropdownVisible: false,
+            link: {"Home":"/newsite",
+            "Verkaufen":"/nnewarticle",
+            "Kategorien":""},
         };
     },
     methods: {
@@ -30,7 +33,7 @@ export default {
                     <button v-if="item.length > 1" class="Dropdown-button navbar__Drop--Button" @click="toggleDropdown">
                         {{ item[0] }}
                     </button>
-                    <button v-else>{{ item[0] }}</button>
+                    <a v-else v-bind:href="link[item[0]]"><button >{{ item[0] }}</button></a>
                     <ul v-if="item.length > 1" class="dropList navbar__Drop--List" v-show="isDropdownVisible">
                         <li v-for="(subItem, index) in item.slice(1)" :key="index">
                             <button>{{ subItem }}</button>
