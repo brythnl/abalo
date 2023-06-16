@@ -72,8 +72,8 @@ export default {
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(params);
         },
-        verkauft: function() {
-            axios.post('/api/articles/1/sold/5')
+        verkauft: function(articleId) {
+            axios.post('/api/articles/' + articleId + '/sold')
                 .then(response => {
                     console.log(response);
                 })
