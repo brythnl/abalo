@@ -149,7 +149,7 @@ export default {
                         </td>
 
                         <td v-if="article.offer==true" class="ItemTable--offered"><a href=# @click="verkauft" class="ItemTable--offered">Verkauft</a></td>
-                        <td v-else><a href=# @click="verkauft">Verkauft</a></td>
+                        <td v-else><a href=# @click="verkauft(article.id)">Verkauft</a></td>
                     </tr>
                     </tbody>
                 </table>
