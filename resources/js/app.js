@@ -15,6 +15,19 @@ nachrichtConn.onmessage = function(e) {
     alert(e.data);
 };
 
+let verkauftConn = new WebSocket('ws://localhost:8085/verkaufsmeldung');
+verkauftConn.onopen = function(e) {
+    console.log("hello");
+}
+verkauftConn.onmessage = function(e) {
+    let data = JSON.parse(e.data);
+    console.log(window.session.userId);
+    if (data.articleCreatorId == window.session.userId) {
+        alert(data.message);
+    }
+}
+
+
 Vue.createApp({
     components: {
         NavBar,
