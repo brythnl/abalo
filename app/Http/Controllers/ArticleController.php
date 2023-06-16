@@ -104,22 +104,29 @@ class ArticleController extends Controller
         }
     }
 
-    public function soldArticle_api($id, $userid)
+    public function soldArticle_api($id)
     {
         $article = AbArticle::find($id);
-        if (isset($userid) && $article->ab_creator_id == $userid) {
-            $articleName = $article->ab_name;
-            \Ratchet\Client\connect("ws://localhost:8085/nachricht")->then(function($conn) use ($articleName){
-                $conn->on('message', function($msg) use ($conn) {
-                    echo "Received: {$msg}\n";
-                    $conn->close();
-                });
-                $conn->send("Großartig! Ihr Artikel: $articleName wurde erfolgreich verkauft!");
+        $articleName = $article->ab_name;
+        $articleCreatorId = $article->ab_creator_id;
+        \Ratchet\Client\connect("ws://localhost:8085/verkaufsmeldung")->then(function($conn) use ($articleName, $articleCreatorId){
+            $data = [
+                'articleCreatorId' => $articleCreatorId,
+                'message' => "Grossartig! Ihr Artikel: $articleName wurde erfolgreich verkauft!",
+            ];
+            $jsonString = json_encode($data);
+
+            $conn->on('message', function($msg) use ($conn) {
+                echo "Received: {$msg}\n";
                 $conn->close();
-            }, function ($e) {
-                echo "Could not connect: {$e->getMessage()}\n";
             });
-        }
+
+            $conn->send($jsonString);
+
+            $conn->close();
+        }, function ($e) {
+            echo "Could not connect: {$e->getMessage()}\n";
+        });
     }
 
     public function getMyArticle_api(Request $request){
