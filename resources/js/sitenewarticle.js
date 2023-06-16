@@ -96,7 +96,7 @@ export default{
         <div id="article-form-container" class="article-form-container">
         </div>
         <input type="button" v-on:click="submitform" value="Speichern" class="article-form-container__saveButton">
-        <p id="returntext article-form-container__returntext">
+        <p id="returntext" class="article-form-container__returntext">
         </p>
         </main>
     `
