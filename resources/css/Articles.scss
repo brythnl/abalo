@@ -16,7 +16,6 @@ $tablecol : #F1C376;
 }
 @mixin rounding(){
     border: solid transparent 10px;
-    background-color: $bgcolor;
     border-radius: 10px;
 }
 @mixin hovercolor($property){
@@ -35,7 +34,15 @@ $tablecol : #F1C376;
     }
     tr{
         @include rounding();
+        background-color: $bgcolor;
         font : 25px $fonts;
+    }
+    &--offered{
+        font-size: larger;
+        background-color: #FF8551;
+        h4{
+            color: darkred;
+        }
     }
     td{
         @include rounding();
@@ -52,6 +59,7 @@ $tablecol : #F1C376;
         padding: 0 25px;
         @include hovercolor($tablecol);
     }
+
 }
 
 .pageList{
@@ -68,4 +76,5 @@ $tablecol : #F1C376;
 
     }
 }
+
 

@@ -81,19 +81,26 @@ export default {
                     console.log(error);
                 });
         },
+        artilcecheck: function (arr){
+            if(arr.offer===true){
+                alert("The article "+arr.name+" is now cheaper! Grab it fast!");
+            }
+        }
     },
     computed: {
         filteredArticles() {
+            let out = [];
                 if (this.Input.length >= 3 ) {
                     if(this.currentInput!==this.Input) {
                         this.currentInput=this.Input;
                         this.searchArticle()
                     }
-                    return this.searchedArticle;
+                    out = this.searchedArticle;
                 }else{
-                    return this.articles;
+                    out= this.articles;
                 }
-
+                out.forEach(this.artilcecheck);
+                return out;
         }
     },
     template:`
@@ -116,17 +123,33 @@ export default {
                         <th>price</th>
                         <th>description</th>
                     </tr>
-                    <tr v-for="article in filteredArticles" v-bind:id="article.id">
-                        <td class="article-picture ItemTable__Picture"><img v-bind:src="article.picture" v-bind:alt="article.name" class="ItemTable__Img"></td>
-                        <td class="article-name ItemTable__Name">{{ article.name }}</td>
-                        <td class="article-price ItemTable__price">{{ article.price }}</td>
-                        <td class="article-desc ItemTable__desc">{{ article.description }}</td>
-                        <td><a href=# class="add-to-cart-button ItemTable__AddButton" style="text-decoration: none; color: black;">+</a>
+                    <tr v-for="article in filteredArticles" v-bind:id="article.id" >
+                        <td v-if="article.offer==true" class="article-picture ItemTable__Picture ItemTable--offered"><img v-bind:src="article.picture" v-bind:alt="article.name" class="ItemTable__Img"></td>
+                        <td v-else class="article-picture ItemTable__Picture"><img v-bind:src="article.picture" v-bind:alt="article.name" class="ItemTable__Img"></td>
+
+                        <td v-if="article.offer==true" class="article-name ItemTable__Name ItemTable--offered"><h4>on sale</h4>{{ article.name }}</td>
+                        <td v-else class="article-name ItemTable__Name">{{ article.name }}</td>
+
+                        <td v-if="article.offer==true" class="article-price ItemTable__price ItemTable--offered"><h4>on sale</h4>{{ article.price }}</td>
+                        <td v-else class="article-price ItemTable__price offered">{{ article.price }}</td>
+
+                        <td v-if="article.offer==true" class="article-desc ItemTable__desc ItemTable--offered"><h4>on sale</h4>{{ article.description }}</td>
+                        <td v-else class="article-desc ItemTable__desc offered">{{ article.description }}</td>
+
+                        <td v-if="article.offer==true" class="ItemTable--offered"><a href=# class="add-to-cart-button ItemTable__AddButton ItemTable--offered" style="text-decoration: none; color: black;">+</a>
                         </td>
-                        <td><a href=# class="remove-from-cart-button ItemTable__RemButton"
+                        <td v-else><a href=# class="add-to-cart-button ItemTable__AddButton" style="text-decoration: none; color: black;">+</a>
+                        </td>
+
+                        <td v-if="article.offer==true" class="ItemTable--offered"><a href=# class="remove-from-cart-button ItemTable__RemButton "
                                style="text-decoration: none; color: black;">-</a>
                         </td>
-                        <td><a href=# @click="verkauft">Verkauft</a></td>
+                        <td v-else><a href=# class="remove-from-cart-button ItemTable__RemButton"
+                               style="text-decoration: none; color: black;">-</a>
+                        </td>
+
+                        <td v-if="article.offer==true" class="ItemTable--offered"><a href=# @click="verkauft" class="ItemTable--offered">Verkauft</a></td>
+                        <td v-else><a href=# @click="verkauft">Verkauft</a></td>
                     </tr>
                     </tbody>
                 </table>

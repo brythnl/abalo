@@ -1,4 +1,5 @@
 import Impressum from "./impressum.js";
+import axios from "axios";
 
 
 export default {
@@ -18,23 +19,26 @@ export default {
         init: function (){
             this.username=document.getElementById('user-name').value;
             console.log(this.username);
-            let xhr = new XMLHttpRequest();
-            xhr.onreadystatechange=()=> {
-                if(xhr.readyState===4){
-                    if(xhr.status===200){
-                        this.myItem=JSON.parse(xhr.responseText);
-                        console.log(this.myItem);
-                    }else{
-                        console.error(xhr.statusText);
-                    }
-                }
-            };
-            xhr.open('GET', "/api/myArticle?user="+this.username);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send();
+            this.loadArticle()
         },
-        ArticleOffer: function (id){
-
+        ArticleOffer: function (uid){
+            axios.post('/api/offerarticle',{id:uid})
+                .then(response => {
+                    console.log(response.data);
+                    this.loadArticle();
+                    alert('Article offered as a special offer')
+                }).catch(error=> {
+                    console.log(error);
+            })
+        },
+        loadArticle:function (){
+            axios.get('/api/myArticle?user='+this.username)
+                .then(response => {
+                    console.log(response.data);
+                    this.myItem=response.data;
+                }).catch(error=>{
+                    console.log(error);
+            })
         }
 
     },
@@ -55,9 +59,10 @@ export default {
                     <td class="article-name ItemTable__Name">{{ article.name }}</td>
                     <td class="article-price ItemTable__price">{{ article.price }}</td>
                     <td class="article-desc ItemTable__desc">{{ article.description }}</td>
-                    <td><button>Apply as special offer</button></td>
-
-
+                    <td>
+                        <input v-if="article.offer==false" type="button" value="Apply as special offer" v-on:click="ArticleOffer(article.id)">
+                        <input v-else type="button" value="Apply as special offer" v-on:click="ArticleOffer(article.id)" disabled>
+                    </td>
                 </tr>
                 </tbody>
             </table>

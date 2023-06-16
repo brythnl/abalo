@@ -121,11 +121,12 @@ class ArticleController extends Controller
             });
         }
     }
+
     public function getMyArticle_api(Request $request){
         $user = trim($_GET['user'] ?? NULL);
 
         $id = AbUser::firstWhere("ab_name",$user)->id;
-        $res = AbArticle::query()->where(("ab_creator_id"),"=",$id)->get()->toArray();
+        $res = AbArticle::query()->where(("ab_creator_id"),"=",$id)->orderBy(('ab_offer_status'),'DESC')->get()->toArray();
         $result=array($res);
         $i=0;
         foreach ($res as $item) {
@@ -142,6 +143,18 @@ class ArticleController extends Controller
         return response($result);
 
 
+    }
+
+    public function offerArticle_api(Request $request){
+        $id =trim($request->input("id") ?? NULL);
+        if($id) {
+            AbArticle::query()->where(('id'), '=', $id)->update(['ab_offer_status' => true]);
+            $message = array('message'=>"success",'id'=>$id);
+        }else{
+            $message = array('message'=>"failed",'id'=>$id);
+        }
+        $message=json_encode($message);
+        return response($message);
     }
 
 

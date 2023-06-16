@@ -29,6 +29,8 @@ Route::post('/articles',[ArticleController::class,'newArticle_api']);
 
 Route::get('/page',[PaginationApi::class,'Pagination_Api']);
 Route::get('/pageCount',[PaginationApi::class,'getPageCount_api']);
+
 Route::get('/myArticle',[ArticleController::class,'getMyArticle_api']);
+route::post('/offerarticle',[ArticleController::class,'offerArticle_api']);
 
 Route::post('/articles/{id}/sold/{userid}',[ArticleController::class,'soldArticle_api']);
