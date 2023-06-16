@@ -2,7 +2,7 @@
     <div id="app">
         <nav-bar></nav-bar>
         <site-header></site-header>
-        @if(isset($_SESSION['abalo_user']))
+        @if(session('abalo_user') !== null)
             <input type="hidden" id="user-name" name="user-name" value="{{session('abalo_user')}}">
         @else
             <input type="hidden" id="user-name" name="user-name" value="0">
