@@ -33,4 +33,4 @@ Route::get('/pageCount',[PaginationApi::class,'getPageCount_api']);
 Route::get('/myArticle',[ArticleController::class,'getMyArticle_api']);
 route::post('/offerarticle',[ArticleController::class,'offerArticle_api']);
 
-Route::post('/articles/{id}/sold/{userid}',[ArticleController::class,'soldArticle_api']);
+Route::post('/articles/{id}/sold',[ArticleController::class,'soldArticle_api']);
