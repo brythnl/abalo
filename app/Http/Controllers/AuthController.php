@@ -24,6 +24,7 @@ class AuthController extends Controller
 
         $shoppingcartid = $shoppingCart->id;
 
+        $request->session()->put('user_id', $creatorid);
         $request->session()->put('abalo_shoppingcartid', $shoppingcartid);
 
         return redirect()->route('haslogin');
