@@ -19,5 +19,10 @@
         </vue-scroll-up>
     </div>
 
+    <script>
+        window.session = {
+            userId: @php echo json_encode(session('user_id')); @endphp
+        };
+    </script>
     @vite('resources/js/app.js')
 </x-layout>
