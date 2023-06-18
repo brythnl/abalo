@@ -81,10 +81,9 @@ export default {
                     console.log(error);
                 });
         },
-        artilcecheck: function (arr){
-            if(arr.offer===true){
-                alert("The article "+arr.name+" is now cheaper! Grab it fast!");
-            }
+        artilcecheck: function (name){
+            alert("The article "+name+" is now cheaper! Grab it fast!");
+
         }
     },
     computed: {
@@ -99,7 +98,6 @@ export default {
                 }else{
                     out= this.articles;
                 }
-                out.forEach(this.artilcecheck);
                 return out;
         }
     },
@@ -124,10 +122,10 @@ export default {
                         <th>description</th>
                     </tr>
                     <tr v-for="article in filteredArticles" v-bind:id="article.id" >
-                        <td v-if="article.offer==true" class="article-picture ItemTable__Picture ItemTable--offered"><img v-bind:src="article.picture" v-bind:alt="article.name" class="ItemTable__Img"></td>
+                        <td v-if="article.offer==true" class="article-picture ItemTable__Picture ItemTable--offered"><img v-bind:src="article.picture" v-bind:alt="article.name" class="ItemTable__Img" v-on:load="artilcecheck(article.name)"></td>
                         <td v-else class="article-picture ItemTable__Picture"><img v-bind:src="article.picture" v-bind:alt="article.name" class="ItemTable__Img"></td>
 
-                        <td v-if="article.offer==true" class="article-name ItemTable__Name ItemTable--offered"><h4>on sale</h4>{{ article.name }}</td>
+                        <td v-if="article.offer==true" class="article-name ItemTable__Name ItemTable--offered" v-on:load="artilcecheck(article.name)"><h4>on sale</h4>{{ article.name }}</td>
                         <td v-else class="article-name ItemTable__Name">{{ article.name }}</td>
 
                         <td v-if="article.offer==true" class="article-price ItemTable__price ItemTable--offered"><h4>on sale</h4>{{ article.price }}</td>
