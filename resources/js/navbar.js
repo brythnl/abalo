@@ -30,11 +30,11 @@ export default {
         <nav>
             <ul class="navbar" id="navBar">
                 <li v-for="item in menu" :key="item[0]" >
-                    <button v-if="item.length > 1" class="Dropdown-button navbar__Drop--Button" @click="toggleDropdown">
+                    <button v-if="item.length > 1" class="Dropdown-button navbar__Drop__Button" @click="toggleDropdown">
                         {{ item[0] }}
                     </button>
                     <a v-else v-bind:href="link[item[0]]"><button >{{ item[0] }}</button></a>
-                    <ul v-if="item.length > 1" class="dropList navbar__Drop--List" v-show="isDropdownVisible">
+                    <ul v-if="item.length > 1" class="dropList navbar__Drop__List" v-show="isDropdownVisible">
                         <li v-for="(subItem, index) in item.slice(1)" :key="index">
                             <button>{{ subItem }}</button>
                         </li>
