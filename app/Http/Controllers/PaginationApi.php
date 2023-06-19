@@ -14,7 +14,7 @@ class PaginationApi
             $limit = 5;
             $offset = $_GET['page']-1 ?? 0;
             $offset = $offset * $limit;
-            $res = AbArticle::query()->offset($offset)->limit($limit)->get()->toArray();
+            $res = AbArticle::query()->orderBy('id')->offset($offset)->limit($limit)->get()->toArray();
         }
         $result = array();
         $i=0;

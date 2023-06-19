@@ -59,6 +59,16 @@ $tablecol : #F1C376;
         padding: 0 25px;
         @include hovercolor($tablecol);
     }
+    &__offerButton{
+        &--enabled{
+            color: #FFF;
+            background: #569E3D linear-gradient(#79D858, #569E3D) repeat-x;
+            border-color: #4A993E;
+        }
+        &--disabled{
+            color: #900;
+        }
+    }
 
 }
 

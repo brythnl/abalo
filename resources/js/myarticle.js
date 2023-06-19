@@ -60,8 +60,8 @@ export default {
                     <td class="article-price ItemTable__price">{{ article.price }}</td>
                     <td class="article-desc ItemTable__desc">{{ article.description }}</td>
                     <td>
-                        <input v-if="article.offer==false" type="button" value="Apply as special offer" v-on:click="ArticleOffer(article.id)">
-                        <input v-else type="button" value="Apply as special offer" v-on:click="ArticleOffer(article.id)" disabled>
+                        <input v-if="article.offer==false" type="button" value="Apply as special offer" v-on:click="ArticleOffer(article.id)" class="ItemTable__offerButton--enabled">
+                        <input v-else type="button" value="Applied as special offer" v-on:click="ArticleOffer(article.id)" class="ItemTable__offerButton--disabled" disabled>
                     </td>
                 </tr>
                 </tbody>
