@@ -1,4 +1,4 @@
-# Aufgabe 6
+# API Analysis
 
 ## 1. AccuWeather Current Conditions API
 - Zweck: Wettermessdaten für verschiedene geografische Standorte weltweit bereitstellen
